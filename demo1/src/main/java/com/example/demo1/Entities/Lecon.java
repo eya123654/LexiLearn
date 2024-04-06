@@ -3,7 +3,7 @@ package com.example.demo1.Entities;
 public class Lecon {
     private int id;
     private Cours course;
-    private int cours_id;
+
     private String titre;
     private String description;
     private String contenu;
@@ -18,14 +18,7 @@ public class Lecon {
         this.contenu = contenu;
         this.completed = completed;
     }
-    public Lecon( int cours_id, String titre, String description, String contenu, boolean completed) {
 
-        this.cours_id = cours_id;
-        this.titre = titre;
-        this.description = description;
-        this.contenu = contenu;
-        this.completed = completed;
-    }
 
     @Override
     public String toString() {
@@ -53,6 +46,9 @@ public class Lecon {
 
     public void setCourse(Cours course) {
         this.course = course;
+        if (!course.getLessons().contains(this)) {
+            course.getLessons().add(this);
+        }
     }
 
     public String getTitre() {

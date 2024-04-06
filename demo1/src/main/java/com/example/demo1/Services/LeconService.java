@@ -30,10 +30,16 @@ public class LeconService implements IService<Lecon> {
     }
 
     @Override
-    public void supprimer(Lecon lecon) throws SQLException {
+    public Cours readSingle(int id) throws SQLException {
+        return null;
+    }
+
+
+    @Override
+    public void supprimer(int id) throws SQLException {
         String query = "DELETE FROM lecon WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, lecon.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }
     }

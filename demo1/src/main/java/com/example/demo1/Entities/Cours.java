@@ -1,12 +1,26 @@
 package com.example.demo1.Entities;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cours {
     private int id;
     private String nomCours;
     private String description;
     private int avancement;
-    private String image; // Assuming this is an ID linked to an image resource
+    private String image;
     private String price;
+    private List<Lecon> lessons;
+    public Cours(String nom_cours, String description, int avancement, String image, String price) {
+        this.nomCours = nom_cours;
+        this.description = description;
+        this.avancement = avancement;
+        this.image = image;
+        this.price = price;
+        this.lessons = new ArrayList<>();
+
+    }
     public Cours(int id,String nom_cours, String description, int avancement, String image, String price) {
         this.id=id;
         this.nomCours = nom_cours;
@@ -14,14 +28,18 @@ public class Cours {
         this.avancement = avancement;
         this.image = image;
         this.price = price;
+        this.lessons = new ArrayList<>();
+
     }
-    public Cours(String nom_cours, String description, int avancement, String image, String price) {
-        this.nomCours = nom_cours;
-        this.description = description;
-        this.avancement = avancement;
-        this.image = image;
-        this.price = price;
+    public List<Lecon> getLessons() {
+        return lessons;
     }
+
+    public void setLessons(List<Lecon> lessons) {
+        this.lessons = lessons;
+    }
+
+
 
     @Override
     public String toString() {

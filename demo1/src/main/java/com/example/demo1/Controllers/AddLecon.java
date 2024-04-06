@@ -17,9 +17,4 @@ public class AddLecon {
     private Button save;
 
 
-    @FXML
-      void  save lesson (ActionEvent event ){
-          String desc = desc.get
-    }
-
 }
