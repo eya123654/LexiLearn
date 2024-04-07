@@ -2,6 +2,8 @@ package com.example.demo1.Services;
 
 import com.example.demo1.Entities.Cours;
 import com.example.demo1.Utils.DataSource;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -75,8 +77,8 @@ public Cours readSingle(int id) throws SQLException {
     return null;}
 
     @Override
-    public List<Cours> readAll() {
-        List<Cours> cours = new ArrayList<>();
+    public ObservableList<Cours> readAll() {
+        ObservableList<Cours> cours =  FXCollections.observableArrayList();
         String query = "SELECT * FROM cours";
         try {
             Statement statement = connection.createStatement();

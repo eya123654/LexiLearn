@@ -2,6 +2,9 @@ package com.example.demo1.Services;
 import com.example.demo1.Entities.Cours;
 import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Utils.DataSource;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +62,8 @@ public class LeconService implements IService<Lecon> {
         }
     }
     @Override
-    public List<Lecon> readAll() {
-        List<Lecon> lecons = new ArrayList<>();
+    public ObservableList<Lecon> readAll() {
+        ObservableList<Lecon> lecons = FXCollections.observableArrayList();
         String query = "SELECT * FROM lecon";
         try {
             Statement statement = connection.createStatement();

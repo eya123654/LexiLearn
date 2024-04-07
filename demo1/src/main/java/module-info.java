@@ -5,6 +5,7 @@ module demo1 {
     requires java.sql;
     requires  de.jensd.fx.glyphs.fontawesome;
     exports com.example.demo1 to javafx.graphics;
+    opens com.example.demo1.Entities to javafx.base, javafx.fxml;
 
     opens com.example.demo1.Controllers;
 }

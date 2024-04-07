@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<AnchorPane fx:id="formPane" xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CoursController" stylesheets="@../Css/styles.css">
+    <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="20" styleClass="form-vbox">
+        <TextField fx:id="nomCoursField" promptText="Course Name" styleClass="text-field"/>
+        <TextField fx:id="descriptionField" promptText="Description" styleClass="text-field"/>
+        <TextField fx:id="avancementField" promptText="Progress (0-100)" styleClass="text-field"/>
+        <TextField fx:id="imageField" promptText="Image URL" styleClass="text-field"/>
+        <TextField fx:id="priceField" promptText="Price" styleClass="text-field"/>
+        <Button text="Submit" onAction="#addCours" styleClass="submit-button">
+            <graphic>
+                <FontAwesomeIconView glyphName="CHECK" styleClass="icon"/>
+            </graphic>
+        </Button>
+        <TableView fx:id="courseTable" styleClass="table-view">
+            <columns>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <TableView fx:id="courseTable">
-        <columns>
-            <TableColumn text="ID" fx:id="idColumn"/>
-            <TableColumn text="Name" fx:id="nameColumn"/>
-            <TableColumn text="Description" fx:id="descriptionColumn"/>
-            <TableColumn text="Progress" fx:id="progressColumn"/>
-            <TableColumn text="Image" fx:id="imageColumn"/>
-            <TableColumn text="Price" fx:id="priceColumn"/>
-        </columns>
-    </TableView>
-    <HBox>
-        <Button text="Add" fx:id="addButton"/>
-        <Button text="Edit" fx:id="editButton"/>
-        <Button text="Delete" fx:id="deleteButton"/>
-    </HBox>
+                <TableColumn text="ID" fx:id="idColumn"/>
+                <TableColumn text="Name" fx:id="nameColumn"/>
+                <TableColumn text="Description" fx:id="descriptionColumn"/>
+                <TableColumn text="Progress" fx:id="progressColumn"/>
+                <TableColumn text="Image" fx:id="imageColumn"/>
+                <TableColumn text="Price" fx:id="priceColumn"/>
+            </columns>
+        </TableView>
+        <HBox spacing="10" styleClass="action-buttons">
+            <Button fx:id="addButton" onAction="#refreshCourseTable" styleClass="icon-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="PLUS" styleClass="icon"/>
+                </graphic>
+            </Button>
+            <Button text="Edit" fx:id="editButton" styleClass="icon-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="EDIT" styleClass="icon"/>
+                </graphic>
+            </Button>
+            <Button text="Delete" fx:id="deleteButton" styleClass="icon-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="TRASH" styleClass="icon"/>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
 </AnchorPane>

@@ -1,0 +1,26 @@
+.form-vbox {
+    -fx-padding: 20;
+}
+
+.text-field {
+    -fx-pref-width: 300px;
+}
+
+.submit-button, .icon-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.icon-button .icon {
+    -fx-fill: white;
+}
+
+.table-view {
+    -fx-pref-height: 200px;
+}
+
+.action-buttons .icon {
+    -fx-fill: white;
+    -fx-size: 14;
+}

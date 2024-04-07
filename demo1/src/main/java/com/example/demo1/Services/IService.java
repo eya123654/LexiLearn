@@ -1,6 +1,7 @@
 package com.example.demo1.Services;
 
 import com.example.demo1.Entities.Cours;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IService <T>{
 
     void update(T t) throws SQLException;
 
-    List<T> readAll() throws SQLException;
+    ObservableList<T> readAll() throws SQLException;
 
     T findbyId(int id) throws SQLException;
 
