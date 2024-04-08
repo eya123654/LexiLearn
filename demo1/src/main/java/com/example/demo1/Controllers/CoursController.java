@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,7 +39,8 @@ public class CoursController {
     @FXML private TableColumn<Cours, Integer> progressColumn; // Assuming the progress is of type Integer
     @FXML private TableColumn<Cours, String> imageColumn;
     @FXML private TableColumn<Cours, String> priceColumn; // Assuming price is a String, adjust if it's another type
-
+    @FXML
+    private StackPane contentArea;
     @FXML
     private Button addButton;
     @FXML
@@ -102,24 +104,7 @@ public class CoursController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    @FXML
-    private void prepareForUpdate() {
-        Cours selectedCourse = courseTable.getSelectionModel().getSelectedItem();
-        if (selectedCourse != null) {
-
-            nomCoursField.setText(selectedCourse.getNomCours());
-            descriptionField.setText(selectedCourse.getDescription());
-            progressColumn.setText(selectedCourse.getNomCours());
-            imageField.setText(selectedCourse.getDescription());
-            priceField.setText(selectedCourse.getNomCours());
-            descriptionField.setText(selectedCourse.getDescription());
-
-            addButton.setDisable(true);
-            editButton.setDisable(false);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Please select a course to update.","select");
-        }
-    }
+   
 
     @FXML
     private void updateCours(ActionEvent event) throws IOException {
@@ -138,12 +123,12 @@ public class CoursController {
 
                 coursService.update(updatedCours);
                 refreshCourseTable();
-                addButton.setDisable(true);
-                editButton.setDisable(false);
+
                 showAlert(Alert.AlertType.INFORMATION, "Course Updated", "The course was successfully updated.");
             } catch (NumberFormatException e) {
                 showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
             } catch (Exception e) {
+                e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Database Error", "Error updating course: " + e.getMessage());
             }
         } else {
@@ -172,6 +157,7 @@ public class CoursController {
             showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a course from the table.");
         }
     }
+
 
 
 }

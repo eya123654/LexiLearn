@@ -24,5 +24,17 @@
             <FontAwesomeIconView glyphName="CHECK" styleClass="icon"/>
         </graphic>
     </Button>
+        <TableView fx:id="courseTable" styleClass="table-view">
+            <columns>
+
+                <TableColumn text="ID" fx:id="idColumn"/>
+                <TableColumn text="Name" fx:id="nameColumn"/>
+                <TableColumn text="Description" fx:id="descriptionColumn"/>
+                <TableColumn text="Progress" fx:id="progressColumn"/>
+                <TableColumn text="Image" fx:id="imageColumn"/>
+                <TableColumn text="Price" fx:id="priceColumn"/>
+            </columns>
+        </TableView>
     </VBox>
+
 </AnchorPane>

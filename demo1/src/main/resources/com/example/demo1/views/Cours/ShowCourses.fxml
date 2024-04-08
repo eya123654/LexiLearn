@@ -9,7 +9,10 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
 <VBox xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../Css/ShowCourses.css" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20; -fx-background-color: #13293d;" fx:controller="com.example.demo1.Controllers.CoursController">
+
         <Label text=" All Courses" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
         <TableView fx:id="courseTable" style="-fx-background-radius: 5; -fx-border-color: #d3d3d3; -fx-border-radius: 5;">
             <columns>
@@ -30,7 +33,7 @@
             </graphic>
         </Button>
 
-        <Button fx:id="editButton"  styleClass="icon-button" onAction="#updateCours">
+        <Button fx:id="editButton"  styleClass="icon-button" onAction="#prepareForUpdate">
             <graphic>
                 <FontAwesomeIconView glyphName="PENCIL_ALT" styleClass="button-icon"/>
             </graphic>
