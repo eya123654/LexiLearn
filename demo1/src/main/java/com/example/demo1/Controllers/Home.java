@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,19 +13,25 @@ import java.util.Objects;
 public class Home extends Application {
 
     @Override
-    public void start(Stage stage) {
+
+    public void start(Stage primaryStage) {
         try {
-            // Correctly load the FXML file and obtain the root node
-            Parent rootNode = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/Cours/AddCours.fxml")));
-            Scene scene = new Scene(rootNode, 320, 240); // Use the loaded root node
-            stage.setTitle("Hello!");
-            stage.setScene(scene);
-            stage.show();
+            Parent rootNode = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/hello-view.fxml")));
+            primaryStage.setTitle("Educational Platform");
+            primaryStage.setScene(new Scene(rootNode, 993, 616));
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // It's good practice to handle potential errors in a more user-friendly way,
-            // maybe logging the error or showing an alert dialog, depending on your application's needs.
+            showErrorDialog("Failed to load the FXML file", "Could not load the user interface. Please check the console for more information.");
         }
+    }
+
+    private void showErrorDialog(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {
