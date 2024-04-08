@@ -1,0 +1,79 @@
+.styled-table {
+    -fx-font-size: 14px;
+    -fx-border-color: #dcdcdc;
+    -fx-table-cell-border-color: #dcdcdc;
+    -fx-background-color: #fcfcfc;
+}
+
+.styled-table .column-header {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: transparent;
+    -fx-text-fill: #5c5c5c;
+    -fx-alignment: center-left;
+    -fx-padding: 5px;
+}
+
+.styled-table .column-header .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.styled-table .table-row-cell {
+    -fx-border-color: transparent;
+    -fx-padding: 10px 0px;
+}
+
+.styled-table .table-row-cell:filled:selected,
+.styled-table .table-row-cell:filled:selected:focused {
+    -fx-background-color: #b0d7ff;
+}
+
+.table-icon {
+    -fx-fill: #666;
+    -fx-font-size: 12px;
+}
+
+/* Scroll bar styles */
+.styled-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #b0d7ff;
+}
+
+.styled-table .scroll-bar:vertical .track {
+    -fx-background-color: #f0f0f0;
+}
+
+.styled-table .scroll-bar:vertical .increment-button,
+.styled-table .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #f4f4f4;
+}
+
+.button-container {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+.icon-button {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.button-icon {
+    -fx-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Hover and active styles */
+.icon-button:hover {
+    -fx-background-color: #34495e;
+}
+
+.icon-button:pressed {
+    -fx-background-color: #2c3e50;
+}
+

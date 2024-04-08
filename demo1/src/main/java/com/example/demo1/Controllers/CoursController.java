@@ -6,11 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class CoursController {
     @FXML
@@ -98,5 +102,76 @@ public class CoursController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    private void prepareForUpdate() {
+        Cours selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+        if (selectedCourse != null) {
+
+            nomCoursField.setText(selectedCourse.getNomCours());
+            descriptionField.setText(selectedCourse.getDescription());
+            progressColumn.setText(selectedCourse.getNomCours());
+            imageField.setText(selectedCourse.getDescription());
+            priceField.setText(selectedCourse.getNomCours());
+            descriptionField.setText(selectedCourse.getDescription());
+
+            addButton.setDisable(true);
+            editButton.setDisable(false);
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Please select a course to update.","select");
+        }
+    }
+
+    @FXML
+    private void updateCours(ActionEvent event) throws IOException {
+        Cours selectedCours = courseTable.getSelectionModel().getSelectedItem();
+        if (selectedCours != null) {
+
+            try {
+
+                int avancement = Integer.parseInt(avancementField.getText().trim());
+                String nomCours = nomCoursField.getText().trim();
+                String description = descriptionField.getText().trim();
+                String image = imageField.getText().trim();
+                String price = priceField.getText().trim();
+
+                Cours updatedCours = new Cours(selectedCours.getId(), nomCours, description, avancement, image, price);
+
+                coursService.update(updatedCours);
+                refreshCourseTable();
+                addButton.setDisable(true);
+                editButton.setDisable(false);
+                showAlert(Alert.AlertType.INFORMATION, "Course Updated", "The course was successfully updated.");
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Error updating course: " + e.getMessage());
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "No Course Selected. Please select a course in the table.");
+        }
+    }
+    @FXML
+    private void deleteCours(ActionEvent event) {
+        Cours selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+        if (selectedCourse != null) {
+            Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this course?", ButtonType.YES, ButtonType.NO);
+            confirmationDialog.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    try {
+                        coursService.supprimer(selectedCourse.getId());
+                        courseList.remove(selectedCourse);
+                        refreshCourseTable();
+
+                        showAlert(Alert.AlertType.INFORMATION, "Course Deleted", "The course was successfully deleted.");
+                    } catch (Exception e) {
+                        showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the course: " + e.getMessage());
+                    }
+                }
+            });
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a course from the table.");
+        }
+    }
+
 
 }

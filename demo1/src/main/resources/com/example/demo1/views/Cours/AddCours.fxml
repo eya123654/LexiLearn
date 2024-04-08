@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
-<AnchorPane fx:id="formPane" xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CoursController" stylesheets="@../Css/styles.css">
+<AnchorPane fx:id="formPane" xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CoursController" stylesheets="@../../Css/styles.css">
     <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="20" styleClass="form-vbox">
         <TextField fx:id="nomCoursField" promptText="Course Name" styleClass="text-field"/>
         <TextField fx:id="descriptionField" promptText="Description" styleClass="text-field"/>

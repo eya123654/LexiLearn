@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo1.Controllers.CoursController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="20" styleClass="form-vbox">
+
+
+        <TextField fx:id="nomCoursField" promptText="Course Name" styleClass="text-field"/>
+    <TextField fx:id="descriptionField" promptText="Description" styleClass="text-field"/>
+    <TextField fx:id="avancementField" promptText="Progress (0-100)" styleClass="text-field"/>
+    <TextField fx:id="imageField" promptText="Image URL" styleClass="text-field"/>
+    <TextField fx:id="priceField" promptText="Price" styleClass="text-field"/>
+    <Button text="Submit" onAction="#updateCours" styleClass="submit-button">
+        <graphic>
+            <FontAwesomeIconView glyphName="CHECK" styleClass="icon"/>
+        </graphic>
+    </Button>
+    </VBox>
+</AnchorPane>

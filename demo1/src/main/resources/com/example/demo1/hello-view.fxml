@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,31 +15,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.TitledPane?>
 <AnchorPane style="-fx-background-radius: 20;" stylesheets="@Css/Fullpackstyling.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.DashboardController">
-
+<!--Welcome to lexiLearn Dashboard !-->
     <children>
         <AnchorPane id="mainPane" prefHeight="616.0" prefWidth="993.0" style="-fx-background-color: #18202b;">
          <ScrollPane layoutX="200.0" layoutY="50.0">
             <content>
                   <StackPane fx:id="contentArea" prefHeight="566" prefWidth="793" style="-fx-background-color: #13293d; -fx-background-radius: 15;">
+
                 <!-- Content area where different screens will be loaded houni besh tzid navigation tae views -->
             </StackPane>
+
             </content>
          </ScrollPane>
 
-            <VBox fx:id="sideMenu" prefHeight="616.0" prefWidth="200" style="-fx-background-color: #243a50; -fx-background-radius: 0 15 15 0;">
+            <VBox fx:id="sideMenu" layoutY="1.0" prefHeight="616.0" prefWidth="200" style="-fx-background-color: #243a50; -fx-background-radius: 0 15 15 0;">
                 <children>
                     <Pane fx:id="logoContainer" prefHeight="150.0" prefWidth="200" style="-fx-background-color: #243a50;">
                         <children>
-                            <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="25" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@Images/logo.jpg" />
                                 </image>
                             </ImageView>
-                            <Label layoutX="50" layoutY="125" text="LexiLearn" textFill="WHITE">
+                            <Label layoutX="51.0" layoutY="114.0" text="LexiLearn" textFill="WHITE">
                                 <font>
                                     <Font size="24.0" />
                                 </font>
@@ -57,16 +59,16 @@
                           <Button fx:id="coursesButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadView" prefWidth="200" styleClass="button" text="Courses" />
                   </children>
                </Pane>-->
-                    <Button fx:id="coursesButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#toggleCoursesPane" prefWidth="200.0" styleClass="button" text="Courses" />
+                    <Button fx:id="coursesButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#toggleCoursesPane" prefHeight="5.0" prefWidth="200.0" styleClass="button" text="Courses" />
                     <!-- The Accordion with TitledPane for courses actions -->
                     <Accordion fx:id="coursesAccordion" VBox.vgrow="ALWAYS">
                         <panes>
-                            <TitledPane fx:id="coursesPane" >
-                                <VBox spacing="5" >
-                                    <CheckBox fx:id="allCoursesCheckBox" text="All Courses" />
-                                    <CheckBox fx:id="addCourseCheckBox" text="Add Course" onAction="#loadView" />
-                                    <CheckBox fx:id="deleteCourseCheckBox" text="Delete Course" />
-                                    <CheckBox fx:id="updateCourseCheckBox" text="Update Course" />
+                            <TitledPane fx:id="coursesPane">
+                                <VBox spacing="5">
+                                    <CheckBox fx:id="allCoursesCheckBox" onAction="#loadView" text="All Courses" />
+                                    <CheckBox fx:id="addCourseCheckBox" onAction="#loadView" text="Add Course" />
+
+                                    <CheckBox fx:id="updateCourseCheckBox" onAction="#loadView" text="Update Course" />
                                 </VBox>
                             </TitledPane>
                             <!-- Add more TitledPanes for other sections if needed -->
