@@ -156,3 +156,7 @@
 .linear-grad {
     -fx-background-color: linear-gradient(to bottom left, #4091C9, #AED6F1);
 }
+.button-icon {
+    -fx-fill: white;
+    -fx-font-size: 16px;
+}

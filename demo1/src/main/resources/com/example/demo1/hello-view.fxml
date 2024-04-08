@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane style="-fx-background-radius: 20;" stylesheets="@Css/Fullpackstyling.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.DashboardController">
 <!--Welcome to lexiLearn Dashboard !-->
     <children>
@@ -42,44 +43,41 @@
                                 <font>
                                     <Font size="24.0" />
                                 </font>
-                        <padding>
-                           <Insets bottom="10.0" />
-                        </padding>
+                                <padding>
+                                    <Insets bottom="10.0" />
+                                </padding>
                             </Label>
                         </children>
                     </Pane>
-               <!--<Pane>
-                  <VBox.margin>
-                     <Insets top="15.0" />
-                  </VBox.margin>
-                  <padding>
-                     <Insets top="10.0" />
-                  </padding>
-                  <children>
-                          <Button fx:id="coursesButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#loadView" prefWidth="200" styleClass="button" text="Courses" />
-                  </children>
-               </Pane>-->
-                    <Button fx:id="coursesButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#toggleCoursesPane" prefHeight="5.0" prefWidth="200.0" styleClass="button" text="Courses" />
-                    <!-- The Accordion with TitledPane for courses actions -->
-                    <Accordion fx:id="coursesAccordion" VBox.vgrow="ALWAYS">
-                        <panes>
-                            <TitledPane fx:id="coursesPane">
-                                <VBox spacing="5">
-                                    <CheckBox fx:id="allCoursesCheckBox" onAction="#loadView" text="All Courses" />
-                                    <CheckBox fx:id="addCourseCheckBox" onAction="#loadView" text="Add Course" />
 
-                                    <CheckBox fx:id="updateCourseCheckBox" onAction="#loadView" text="Update Course" />
-                                </VBox>
-                            </TitledPane>
-                            <!-- Add more TitledPanes for other sections if needed -->
-                        </panes>
-                    </Accordion>
+                    <Button fx:id="coursesButton" text="Courses" onAction="#toggleCoursesPane" styleClass="side-menu-button" >
+                        <graphic>
+                            <FontAwesomeIconView glyphName="UNIVERSITY" styleClass="button-icon" />
+                        </graphic>
+                    </Button>
+                    <VBox fx:id="coursesPane" styleClass="side-sub-menu" visible="false" managed="false">
+                        <children>
+                            <Button fx:id="allCoursesCheckBox" text="All Courses" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="addCourseCheckBox" text="Add Course" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="updateCourseCheckBox" text="Update Course" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </VBox>
 
-                    <!-- Other menu buttons go here -->
                 </children>
             </VBox>
 
-            <!-- Other UI components go here -->
 
         </AnchorPane>
     </children>

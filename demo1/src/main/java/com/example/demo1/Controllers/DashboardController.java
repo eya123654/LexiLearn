@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
@@ -15,16 +16,16 @@ public class DashboardController {
     private StackPane contentArea;
 
     @FXML
-    private CheckBox allCoursesCheckBox;
+    private Button allCoursesCheckBox;
 
     @FXML
-    private CheckBox addCourseCheckBox;
+    private Button addCourseCheckBox;
 
     @FXML
-    private CheckBox deleteCourseCheckBox;
+    private Button deleteCourseCheckBox;
 
     @FXML
-    private CheckBox updateCourseCheckBox;
+    private Button updateCourseCheckBox;
 
     @FXML private Button coursesButton;
 
@@ -32,7 +33,7 @@ public class DashboardController {
     private Accordion coursesAccordion;
 
     @FXML
-    private TitledPane coursesPane;
+    private VBox coursesPane;
 
     @FXML
     private void initialize() {
@@ -40,13 +41,8 @@ public class DashboardController {
     }
     @FXML
     private void toggleCoursesPane(ActionEvent event) {
-        // If the coursesPane is already expanded, collapse it.
-        if (coursesAccordion.getExpandedPane() == coursesPane) {
-            coursesAccordion.setExpandedPane(null);
-        } else {
-            // Otherwise, expand it.
-            coursesAccordion.setExpandedPane(coursesPane);
-        }
+        coursesPane.setVisible(!coursesPane.isVisible());
+        coursesPane.setManaged(!coursesPane.isManaged());
     }
     @FXML
     public void loadView(ActionEvent event) {

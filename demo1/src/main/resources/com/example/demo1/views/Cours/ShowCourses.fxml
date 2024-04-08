@@ -33,7 +33,7 @@
             </graphic>
         </Button>
 
-        <Button fx:id="editButton"  styleClass="icon-button" onAction="#prepareForUpdate">
+        <Button fx:id="editButton"  styleClass="icon-button" onAction="#deleteCours">
             <graphic>
                 <FontAwesomeIconView glyphName="PENCIL_ALT" styleClass="button-icon"/>
             </graphic>

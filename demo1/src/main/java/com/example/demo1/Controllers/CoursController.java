@@ -104,7 +104,7 @@ public class CoursController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-   
+
 
     @FXML
     private void updateCours(ActionEvent event) throws IOException {
