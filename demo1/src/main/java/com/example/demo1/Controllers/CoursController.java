@@ -56,20 +56,37 @@ public class CoursController {
 
     @FXML
     private void initialize() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id")); // Ensure property name matches
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nomCours")); // Ensure property name matches
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description")); // Ensure property name matches
-        progressColumn.setCellValueFactory(new PropertyValueFactory<>("avancement")); // Ensure property name matches
-        imageColumn.setCellValueFactory(new PropertyValueFactory<>("image")); // Ensure property name matches
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price")); // Ensure property name matches
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nomCours"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        progressColumn.setCellValueFactory(new PropertyValueFactory<>("avancement"));
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        courseTable.setItems(courseList); // Bind the table's items to the observable list once
-        refreshCourseTable(); // Load initial data
+        courseTable.setItems(courseList);
+        refreshCourseTable();
+        courseTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Cours selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+                populateTextFields(selectedCourse);
+            }
+        });
+    }
+    private void populateTextFields(Cours course) {
+        idColumn.setText(String.valueOf(course.getId()));
+        nomCoursField.setText(course.getNomCours());
+        descriptionField.setText(course.getDescription());
+        avancementField.setText(String.valueOf(course.getAvancement()));
+        imageField.setText(course.getImage());
+        priceField.setText(course.getPrice());
+
+
     }
     @FXML
     private void addCours(ActionEvent event) {
+        if (validateInput()){
         try {
-            // Assuming avancement is an integer.
+
             int avancement = Integer.parseInt(avancementField.getText().trim());
             String nomCours = nomCoursField.getText().trim();
             String description = descriptionField.getText().trim();
@@ -90,6 +107,10 @@ public class CoursController {
         showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
     } catch (Exception e) {
         showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
+    }
+    }
+    else {
+            showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
     }
     }
     @FXML
@@ -158,6 +179,57 @@ public class CoursController {
         }
     }
 
+    private boolean validateInput() {
+        String courseName = nomCoursField.getText();
+        String description = descriptionField.getText();
+        String progress = avancementField.getText();
+        String imageUrl = imageField.getText();
+        String price = priceField.getText();
 
+
+        boolean isValid = true;
+
+        if (courseName.isEmpty()) {
+            isValid = false;
+            nomCoursField.setStyle("-fx-border-color: red;");
+        } else {
+            nomCoursField.setStyle("");
+        }
+        if (description.isEmpty()) {
+            isValid = false;
+            descriptionField.setStyle("-fx-border-color: red;");
+        } else {
+            descriptionField.setStyle("");
+        }
+        if (imageUrl.isEmpty()) {
+            isValid = false;
+            imageField.setStyle("-fx-border-color: red;");
+        } else {
+            imageField.setStyle("");
+        }
+        if (price.isEmpty()) {
+            isValid = false;
+            priceField.setStyle("-fx-border-color: red;");
+        } else {
+            priceField.setStyle("");
+        }
+
+        try {
+            int progressValue = Integer.parseInt(progress);
+            if (progressValue < 0 || progressValue > 100) {
+                isValid = false;
+                avancementField.setStyle("-fx-border-color: red;");
+            } else {
+                avancementField.setStyle("");
+            }
+        } catch (NumberFormatException e) {
+            isValid = false;
+            avancementField.setStyle("-fx-border-color: red;");
+        }
+
+
+
+        return isValid;
+    }
 
 }

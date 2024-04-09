@@ -160,3 +160,40 @@
     -fx-fill: white;
     -fx-font-size: 16px;
 }
+.home-container {
+    -fx-padding: 50px;
+    -fx-background-color: #fff;
+}
+
+.welcome-label {
+    -fx-font-size: 36px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+.slogan-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #666;
+}
+
+.get-started-button, .learn-more-button {
+    -fx-background-color: #2B6CB0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+}
+
+.learn-more-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #2B6CB0;
+    -fx-border-width: 2;
+}
+
+.get-started-button:hover, .learn-more-button:hover {
+    -fx-opacity: 0.8;
+}
+.head-background
+{
+    -fx-background-color: linear-gradient(to left,#795AF3 ,#3929E0);
+}

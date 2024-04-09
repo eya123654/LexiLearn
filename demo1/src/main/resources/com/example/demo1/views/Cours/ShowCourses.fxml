@@ -26,7 +26,7 @@
         </TableView>
 
 
-    <HBox spacing="10" styleClass="button-container">
+   <!-- <HBox spacing="10" styleClass="button-container">
         <Button fx:id="addButton" onAction="#addCours" styleClass="icon-button">
             <graphic>
                 <FontAwesomeIconView glyphName="PLUS" styleClass="button-icon"/>
@@ -44,6 +44,6 @@
                 <FontAwesomeIconView glyphName="TRASH" styleClass="button-icon" />
             </graphic>
         </Button>
-    </HBox>
+    </HBox>-->
 
 </VBox>

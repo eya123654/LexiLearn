@@ -4,7 +4,11 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <AnchorPane fx:id="formPane" xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CoursController" stylesheets="@../../Css/styles.css">
-    <Label text=" Add Course" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+    <Label text=" Add Course" style="-fx-font-size: 24px; -fx-text-fill: white;">
+        <graphic>
+            <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
+        </graphic>
+    </Label>
 
     <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="20" styleClass="form-vbox">
         <TextField fx:id="nomCoursField" promptText="Course Name" styleClass="text-field"/>
@@ -12,9 +16,9 @@
         <TextField fx:id="avancementField" promptText="Progress (0-100)" styleClass="text-field"/>
         <TextField fx:id="imageField" promptText="Image URL" styleClass="text-field"/>
         <TextField fx:id="priceField" promptText="Price" styleClass="text-field"/>
-        <Button text="Submit" onAction="#addCours" styleClass="submit-button">
+        <Button text="Add Course" onAction="#addCours" stylesheets="@../../Css/ShowCourses.css"  styleClass="icon-button">
             <graphic>
-                <FontAwesomeIconView glyphName="CHECK" styleClass="icon"/>
+                <FontAwesomeIconView glyphName="PLUS" styleClass="button-icon"/>
             </graphic>
         </Button>
         <TableView fx:id="courseTable" styleClass="table-view">
@@ -28,20 +32,11 @@
                 <TableColumn text="Price" fx:id="priceColumn"/>
             </columns>
         </TableView>
-        <HBox spacing="10" styleClass="action-buttons">
-            <Button fx:id="addButton" onAction="#refreshCourseTable" styleClass="icon-button">
+        <HBox spacing="10" stylesheets="@../../Css/ShowCourses.css" >
+
+            <Button fx:id="deleteButton"  styleClass="icon-button" onAction="#deleteCours">
                 <graphic>
-                    <FontAwesomeIconView glyphName="PLUS" styleClass="icon"/>
-                </graphic>
-            </Button>
-            <Button text="Edit" fx:id="editButton" styleClass="icon-button">
-                <graphic>
-                    <FontAwesomeIconView glyphName="EDIT" styleClass="icon"/>
-                </graphic>
-            </Button>
-            <Button text="Delete" fx:id="deleteButton" styleClass="icon-button">
-                <graphic>
-                    <FontAwesomeIconView glyphName="TRASH" styleClass="icon"/>
+                    <FontAwesomeIconView glyphName="TRASH" styleClass="button-icon"/>
                 </graphic>
             </Button>
         </HBox>

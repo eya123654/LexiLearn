@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo1.Controllers.CoursController"
-            prefHeight="400.0" prefWidth="600.0">
+
+<AnchorPane fx:id="formPane" xmlns="http://javafx.com/javafx/8.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CoursController" stylesheets="@../../Css/styles.css">
+    <Label text=" Update Course" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+
     <VBox spacing="20" alignment="TOP_CENTER" layoutX="20" layoutY="20" styleClass="form-vbox">
 
 
