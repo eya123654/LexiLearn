@@ -1,0 +1,71 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.headerLabel {
+    font-size: 24px;
+    font-weight: bold;
+}
+.textField {
+    -fx-text-fill: black; /* Text color for TextField */
+    /* Add other styling properties as needed */
+}
+
+.comboBox {
+    -fx-background-color: #333; /* Dark background for ComboBox */
+    -fx-text-fill: white; /* White text for ComboBox */
+    /* Add other styling properties as needed */
+}
+
+.comboBox .list-cell {
+    -fx-text-fill: white; /* White text for dropdown items */
+}
+
+.comboBox .cell {
+    -fx-text-fill: white; /* White text for selected item */
+    /* Add other styling properties as needed */
+}
+
+/* Add your existing styles below */
+
+.textField, .textArea, .comboBox {
+    -fx-padding: 8px;
+    -fx-border-color: #0053a6;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+
+}
+.textField, .textArea {
+    -fx-text-fill: black; /* Ensures text is visible against a light background */
+    -fx-background-color: white; /* Light background */
+    /* Additional styling */
+}
+
+.comboBox .list-cell {
+    -fx-text-fill: white; /* Sets the dropdown list items to white */
+    -fx-background-color: #333; /* Ensure dropdown list items have a contrasting background */
+}
+
+.textArea {
+    -fx-min-height: 100px;
+    -fx-max-height: 100px;
+}
+
+.checkBox {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+
+}
+
+.button {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: black;
+    -fx-background-radius: 0;
+    -fx-font-size: 14px;
+    -fx-text-align: center;
+    -fx-padding: 10px 20px;
+}
+
+.button:hover {
+    -fx-background-color: #0053a6;
+}

@@ -90,6 +90,33 @@
                         </children>
                     </VBox>
 
+                        </children>
+                <children>
+                    <Button fx:id="LessonsButton" text="Lessons" onAction="#toggleLessonsPane" styleClass="side-menu-button" >
+                        <graphic>
+                            <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
+                        </graphic>
+                    </Button>
+                    <VBox fx:id="lessonsPane" styleClass="side-sub-menu" visible="false" managed="false">
+                        <children>
+                            <Button fx:id="allLessons" text="All Lessons" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="addLesson" text="Add Lesson" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="updateLesson" text="Update Lesson" onAction="#loadView" styleClass="side-menu-button" >
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
+                                </graphic>
+                            </Button>
+                </children>
+                    </VBox>
+
                 </children>
             </VBox>
 

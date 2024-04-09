@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
+
+
 public class CoursController {
     @FXML
     private TextField nomCoursField;
@@ -99,6 +101,7 @@ public class CoursController {
             Cours cours = new Cours( nomCours, description, avancement, image, price); // Assuming ID is auto-generated
             coursService.ajouter(cours);
             courseList.add(cours);
+            clearForm();
             refreshCourseTable();
             System.out.println(cours);
 
@@ -231,5 +234,11 @@ public class CoursController {
 
         return isValid;
     }
-
+    private void clearForm() {
+        descriptionField.clear();
+        nomCoursField.clear();
+        priceField.clear();
+        imageField.clear();
+        priceField.clear();
+    }
 }

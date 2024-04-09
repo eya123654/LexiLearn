@@ -6,9 +6,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo1.Controllers.AddLecon"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="com.example.demo1.Controllers.LeconController"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@../../Css/addLesson.css">
 
+    <children>
+        <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="20" prefWidth="600" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="20">
+            <children>
+                <HBox alignment="CENTER" spacing="10">
+                    <children>
+                        <Label text="Add Lesson" textFill="aliceblue" styleClass="headerLabel" style="-fx-font-size: 24px; -fx-text-fill: white;">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PENCIL_SQUARE"  styleClass="button-icon" />
+                            </graphic>
+                        </Label>
+
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <TextField fx:id="titleTextField" promptText="Title" styleClass="textField"/>
+                    </children>
+                </HBox>
+                <TextArea fx:id="descriptionTextArea" promptText="Description" prefHeight="100.0" styleClass="textArea"/>
+                <HBox spacing="10">
+                    <children>
+                        <TextArea fx:id="contentTextField" promptText="Content" styleClass="textField"/>
+                    </children>
+                </HBox>
+                <CheckBox fx:id="completedCheckBox" text="Completed" styleClass="checkBox"/>
+                <ComboBox fx:id="courseComboBox" promptText="Select Course" styleClass="comboBox"/>
+                <Button text="Add Lesson" onAction="#addLecon" styleClass="button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" styleClass="button-icon" />
+                    </graphic>
+                </Button>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

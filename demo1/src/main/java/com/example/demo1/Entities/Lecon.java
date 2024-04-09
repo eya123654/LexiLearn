@@ -18,6 +18,13 @@ public class Lecon {
         this.contenu = contenu;
         this.completed = completed;
     }
+    public Lecon( Cours course, String titre, String description, String contenu, boolean completed) {
+        this.course = course;
+        this.titre = titre;
+        this.description = description;
+        this.contenu = contenu;
+        this.completed = completed;
+    }
 
 
     @Override

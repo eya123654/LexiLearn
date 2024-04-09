@@ -20,30 +20,47 @@ public class DashboardController {
 
     @FXML
     private Button addCourseCheckBox;
-
+    @FXML
+    private Button allLessons;
+    @FXML
+    private Button addLesson;
+    @FXML
+    private Button updateLesson;
     @FXML
     private Button deleteCourseCheckBox;
 
     @FXML
     private Button updateCourseCheckBox;
 
-    @FXML private Button coursesButton;
+    @FXML
+    private Button coursesButton;
 
     @FXML
     private Accordion coursesAccordion;
 
     @FXML
     private VBox coursesPane;
+    @FXML
+    private VBox lessonsPane;
+
 
     @FXML
     private void initialize() {
 
     }
+
     @FXML
     private void toggleCoursesPane(ActionEvent event) {
         coursesPane.setVisible(!coursesPane.isVisible());
         coursesPane.setManaged(!coursesPane.isManaged());
+
     }
+    @FXML
+    private void toggleLessonsPane(ActionEvent event) {
+        lessonsPane.setVisible(!lessonsPane.isVisible());
+        lessonsPane.setManaged(!lessonsPane.isManaged());
+    }
+
     @FXML
     public void loadView(ActionEvent event) {
         try {
@@ -53,7 +70,16 @@ public class DashboardController {
             } else if (event.getSource() == addCourseCheckBox) {
                 view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/Cours/AddCours.fxml")));
             } else if (event.getSource() == updateCourseCheckBox) {
-                view =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/Cours/UpdateCourse.fxml")));
+                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/Cours/UpdateCourse.fxml")));
+
+            } else if (event.getSource() == allLessons) {
+                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/leçons/Showlessons.fxml")));
+
+            } else if (event.getSource() == addLesson) {
+                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/leçons/AddLecon.fxml")));
+
+            } else if (event.getSource() == updateLesson) {
+                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/leçons/UpdateLesson.fxml")));
 
             }
 
