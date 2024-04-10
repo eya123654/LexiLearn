@@ -133,5 +133,18 @@ public class LeconService implements IService<Lecon> {
         }
         throw new SQLException("Course with ID " + coursId + " not found.");
     }
-
+    public boolean checkCourseNameUnique(String lessonName) {
+        String query = "SELECT count(*) FROM lecon WHERE tittre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, lessonName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; // Retourne vrai si aucun enregistrement n'est trouvé
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -6,9 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo1.Controllers.LeconController"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.LeconController" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20;">
+    <Label text="Update Lesson" style="-fx-font-size: 24px;"/>
+    <TextField fx:id="titleTextField" promptText="Title"/>
+    <TextArea fx:id="descriptionTextArea" promptText="Description" prefRowCount="3"/>
+    <TextArea fx:id="contentTextField" promptText="Content" prefRowCount="5"/>
+    <CheckBox fx:id="completedCheckBox" text="Completed"/>
+    <ComboBox fx:id="courseComboBox"   promptText="Select Course" styleClass="comboBox"/>
 
-</AnchorPane>
+    <Button text="Save Changes" onAction="#handleSaveChanges"/>
+    <TableView fx:id="lessonsTable"   style=" -fx-background-radius: 5; -fx-border-color: #d3d3d3; -fx-border-radius: 5;">
+        <columns>
+            <TableColumn text="Title" fx:id="titleColumn" prefWidth="200.0" />
+            <TableColumn text="Description" fx:id="descriptionColumn" prefWidth="300.0" />
+            <TableColumn text="Content" fx:id="contentColumn" prefWidth="400.0" />
+            <TableColumn text="Completed" fx:id="completedColumn" prefWidth="100.0" />
+            <TableColumn text="Course" fx:id="courseName" prefWidth="100.0" />
+        </columns>
+    </TableView>
+</VBox>

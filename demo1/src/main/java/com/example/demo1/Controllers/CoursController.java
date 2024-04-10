@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 
-
 public class CoursController {
     @FXML
     private TextField nomCoursField;
@@ -34,13 +33,20 @@ public class CoursController {
 
     @FXML
     private TextField priceField;
-    @FXML private TableView<Cours> courseTable;
-    @FXML private TableColumn<Cours, Integer> idColumn; // Assuming the ID is of type Integer
-    @FXML private TableColumn<Cours, String> nameColumn;
-    @FXML private TableColumn<Cours, String> descriptionColumn;
-    @FXML private TableColumn<Cours, Integer> progressColumn; // Assuming the progress is of type Integer
-    @FXML private TableColumn<Cours, String> imageColumn;
-    @FXML private TableColumn<Cours, String> priceColumn; // Assuming price is a String, adjust if it's another type
+    @FXML
+    private TableView<Cours> courseTable;
+    @FXML
+    private TableColumn<Cours, Integer> idColumn; // Assuming the ID is of type Integer
+    @FXML
+    private TableColumn<Cours, String> nameColumn;
+    @FXML
+    private TableColumn<Cours, String> descriptionColumn;
+    @FXML
+    private TableColumn<Cours, Integer> progressColumn; // Assuming the progress is of type Integer
+    @FXML
+    private TableColumn<Cours, String> imageColumn;
+    @FXML
+    private TableColumn<Cours, String> priceColumn; // Assuming price is a String, adjust if it's another type
     @FXML
     private StackPane contentArea;
     @FXML
@@ -52,8 +58,8 @@ public class CoursController {
     private CoursService coursService;
     private ObservableList<Cours> courseList = FXCollections.observableArrayList();
 
-    public  CoursController() throws SQLException{
-        coursService =new CoursService();
+    public CoursController() throws SQLException {
+        coursService = new CoursService();
     }
 
     @FXML
@@ -74,6 +80,7 @@ public class CoursController {
             }
         });
     }
+
     private void populateTextFields(Cours course) {
         idColumn.setText(String.valueOf(course.getId()));
         nomCoursField.setText(course.getNomCours());
@@ -84,46 +91,49 @@ public class CoursController {
 
 
     }
+
     @FXML
     private void addCours(ActionEvent event) {
-        if (validateInput()){
-        try {
+        if (validateInput()) {
+            try {
 
-            int avancement = Integer.parseInt(avancementField.getText().trim());
-            String nomCours = nomCoursField.getText().trim();
-            String description = descriptionField.getText().trim();
-            String image = imageField.getText().trim();
-            String price = priceField.getText().trim();
+                int avancement = Integer.parseInt(avancementField.getText().trim());
+                String nomCours = nomCoursField.getText().trim();
+                String description = descriptionField.getText().trim();
+                String image = imageField.getText().trim();
+                String price = priceField.getText().trim();
 
-            boolean isUnique = coursService.checkCourseNameUnique(nomCours);
-            if (!isUnique) {
-                showAlert(Alert.AlertType.WARNING,"Duplicate Entry", "Ce cours existe déjà.");
-                return;
+                boolean isUnique = coursService.checkCourseNameUnique(nomCours);
+                if (!isUnique) {
+                    showAlert(Alert.AlertType.WARNING, "Duplicate Entry", "Ce cours existe déjà.");
+                    return;
+                }
+
+                // Create a new Cours object with the collected information
+                Cours cours = new Cours(nomCours, description, avancement, image, price); // Assuming ID is auto-generated
+                coursService.ajouter(cours);
+                courseList.add(cours);
+                clearForm();
+                refreshCourseTable();
+                System.out.println(cours);
+
+                showAlert(Alert.AlertType.INFORMATION, "Course Added", "The course was successfully added.");
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
             }
-
-            // Create a new Cours object with the collected information
-            Cours cours = new Cours( nomCours, description, avancement, image, price); // Assuming ID is auto-generated
-            coursService.ajouter(cours);
-            courseList.add(cours);
-            clearForm();
-            refreshCourseTable();
-            System.out.println(cours);
-
-         showAlert(Alert.AlertType.INFORMATION, "Course Added", "The course was successfully added.");
-    } catch (NumberFormatException e) {
-        showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
-    } catch (Exception e) {
-        showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
-    }
-    }
-    else {
+        } else {
             showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
+        }
     }
-    }
+
     @FXML
     private void refreshCourseTable() {
         courseList.clear();
-        courseList.addAll(coursService.readAll());    }
+        courseList.addAll(coursService.readAll());
+    }
+
     @FXML
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -163,6 +173,7 @@ public class CoursController {
             showAlert(Alert.AlertType.WARNING, "No Selection", "No Course Selected. Please select a course in the table.");
         }
     }
+
     @FXML
     private void deleteCours(ActionEvent event) {
         Cours selectedCourse = courseTable.getSelectionModel().getSelectedItem();
@@ -235,9 +246,9 @@ public class CoursController {
         }
 
 
-
         return isValid;
     }
+
     private void clearForm() {
         descriptionField.clear();
         nomCoursField.clear();
