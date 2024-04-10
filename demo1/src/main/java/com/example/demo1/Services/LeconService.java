@@ -43,9 +43,13 @@ public class LeconService implements IService<Lecon> {
         String query = "DELETE FROM lecon WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("No lessons were deleted.");
+            }
         }
     }
+
 
     @Override
     public void update(Lecon lecon) throws SQLException {

@@ -6,6 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../Css/ShowCourses.css" spacing="50" alignment="TOP_CENTER" style="-fx-padding: 20; -fx-background-color: #13293d;" fx:controller="com.example.demo1.Controllers.LeconController">
    <Label text=" All Lessons" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
    <TableView fx:id="lessonsTable"   style=" -fx-background-radius: 5; -fx-border-color: #d3d3d3; -fx-border-radius: 5;">
@@ -18,5 +23,14 @@
 
       </columns>
    </TableView>
-   <ComboBox fx:id="courseComboBox"  visible="false" managed="false" promptText="Select Course" styleClass="comboBox"/>
+   <ComboBox fx:id="courseComboBox"   visible="false" managed="false" promptText="Select Course" styleClass="comboBox"/>
+   <Button fx:id="deleteButton" styleClass="icon-button" onAction="#deleteLesson">
+      <graphic>
+         <FontAwesomeIconView glyphName="TRASH" styleClass="button-icon"/>
+      </graphic>
+   </Button>
+   <TextField fx:id="titleTextField"  visible="false" managed="false" promptText="Title"/>
+   <TextArea fx:id="descriptionTextArea" visible="false" managed="false"  promptText="Description" prefRowCount="3"/>
+   <TextArea fx:id="contentTextField" visible="false" managed="false" promptText="Content" prefRowCount="5"/>
+   <CheckBox fx:id="completedCheckBox"  visible="false" managed="false" text="Completed"/>
 </VBox>

@@ -27,7 +27,8 @@ public class LeconController {
     private TextArea contentTextField;
     @FXML
     private CheckBox completedCheckBox;
-
+    @FXML
+    private Button deleteButton;
     private final CoursService coursService;
     private final LeconService leconService;
     @FXML
@@ -42,7 +43,7 @@ public class LeconController {
     private TableColumn<Lecon, Boolean> completedColumn;
     @FXML
     private TableColumn<Lecon, String> courseName;
-    private  ObservableList<Lecon> LessonList = FXCollections.observableArrayList();
+    private ObservableList<Lecon> LessonList = FXCollections.observableArrayList();
 
     public LeconController() throws SQLException {
         leconService = new LeconService();
@@ -100,41 +101,42 @@ public class LeconController {
 
     @FXML
     public void addLecon(ActionEvent event) {
-if (validateInput()){
-        Cours selectedCourse = courseComboBox.getSelectionModel().getSelectedItem();
-        if (selectedCourse == null) {
-            // Alert user that a course must be selected
-            return;
+        if (validateInput()) {
+            Cours selectedCourse = courseComboBox.getSelectionModel().getSelectedItem();
+            if (selectedCourse == null) {
+                // Alert user that a course must be selected
+                return;
+            }
+
+            String title = titleTextField.getText();
+            String description = descriptionTextArea.getText();
+            String content = contentTextField.getText();
+            boolean isCompleted = completedCheckBox.isSelected();
+            boolean isUnique = leconService.checkCourseNameUnique(titleTextField.getText());
+            if (!isUnique) {
+                showAlert(Alert.AlertType.WARNING, "Duplicate Entry", "Cette leçon existe déjà.");
+                return;
+            }
+            Lecon newLecon = new Lecon(selectedCourse, title, description, content, isCompleted);
+
+
+            try {
+                leconService.ajouter(newLecon);
+
+                LessonList.add(newLecon);
+                clearForm();
+                refreshCourseTable();
+                showAlert(Alert.AlertType.INFORMATION, "lesson Added", "The lesson was successfully added.");
+
+                // Optionally, show confirmation message
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
         }
-
-        String title = titleTextField.getText();
-        String description = descriptionTextArea.getText();
-        String content = contentTextField.getText();
-        boolean isCompleted = completedCheckBox.isSelected();
-    boolean isUnique = leconService.checkCourseNameUnique(titleTextField.getText());
-    if (!isUnique) {
-        showAlert(Alert.AlertType.WARNING, "Duplicate Entry", "Cette leçon existe déjà.");
-        return;
-    }
-        Lecon newLecon = new Lecon(selectedCourse, title, description, content, isCompleted);
-
-
-        try {
-            leconService.ajouter(newLecon);
-
-            LessonList.add(newLecon);
-            clearForm();
-            refreshCourseTable();
-            showAlert(Alert.AlertType.INFORMATION, "lesson Added", "The lesson was successfully added.");
-
-            // Optionally, show confirmation message
-        }catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
-        }}else {
-    showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
-}
     }
 
     private void clearForm() {
@@ -147,42 +149,67 @@ if (validateInput()){
 
     @FXML
     public void handleSaveChanges() {
-       if (validateInput()){
-        try {
+        if (validateInput()) {
+            try {
 
-            Lecon leconToUpdate = lessonsTable.getSelectionModel().getSelectedItem();
+                Lecon leconToUpdate = lessonsTable.getSelectionModel().getSelectedItem();
 
-            if (leconToUpdate != null) {
-                leconToUpdate.setTitre(titleTextField.getText());
-                leconToUpdate.setDescription(descriptionTextArea.getText());
-                leconToUpdate.setContenu(contentTextField.getText());
-                leconToUpdate.setCompleted(completedCheckBox.isSelected());
-                boolean isUnique = leconService.checkCourseNameUnique(titleTextField.getText());
-                if (!isUnique) {
-                    showAlert(Alert.AlertType.WARNING, "Duplicate Entry", "Ce nom existe déjà.");
-                    return;
+                if (leconToUpdate != null) {
+                    leconToUpdate.setTitre(titleTextField.getText());
+                    leconToUpdate.setDescription(descriptionTextArea.getText());
+                    leconToUpdate.setContenu(contentTextField.getText());
+                    leconToUpdate.setCompleted(completedCheckBox.isSelected());
+                    boolean isUnique = leconService.checkCourseNameUnique(titleTextField.getText());
+                    if (!isUnique) {
+                        showAlert(Alert.AlertType.WARNING, "Duplicate Entry", "Ce nom existe déjà.");
+                        return;
+                    }
+                    Cours selectedCours = courseComboBox.getSelectionModel().getSelectedItem();
+                    leconToUpdate.setCourse(selectedCours);
+
+                    leconService.update(leconToUpdate);
+                    refreshCourseTable();
+                    // Optionally, confirm update to the user
+                    showAlert(Alert.AlertType.INFORMATION, "lesson Updated", "The lesson was successfully updated.");
+
+                } else {
+                    showAlert(Alert.AlertType.WARNING, "No Selection", "No lesson Selected. Please select a lesson in the table.");
                 }
-                Cours selectedCours = courseComboBox.getSelectionModel().getSelectedItem();
-                leconToUpdate.setCourse(selectedCours);
 
-                leconService.update(leconToUpdate);
-                refreshCourseTable();
-                // Optionally, confirm update to the user
-                showAlert(Alert.AlertType.INFORMATION, "lesson Updated", "The lesson was successfully updated.");
 
-            } else {
-                showAlert(Alert.AlertType.WARNING, "No Selection", "No lesson Selected. Please select a lesson in the table.");
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Error updating lesson: " + e.getMessage());
             }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
+        }
+    }
 
+    @FXML
+    private void deleteLesson(ActionEvent event) {
+        Lecon selectedLesson = lessonsTable.getSelectionModel().getSelectedItem();
+        if (selectedLesson != null) {
+            Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this lesson?", ButtonType.YES, ButtonType.NO);
+            confirmationDialog.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    try {
+                        leconService.supprimer(selectedLesson.getId());
+                        LessonList.remove(selectedLesson);
+                        refreshCourseTable();
 
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Error updating lesson: " + e.getMessage());
-        }}else {
-           showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
-       }
+                        showAlert(Alert.AlertType.INFORMATION, "Course Deleted", "The course was successfully deleted.");
+                    } catch (Exception e) {
+                        showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the lesson: " + e.getMessage());
+                        System.out.println(e.getMessage());
+                    }
+                }
+            });
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a course from the table.");
+        }
     }
 
     @FXML
@@ -200,6 +227,7 @@ if (validateInput()){
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private boolean validateInput() {
         String title = titleTextField.getText();
         String description = descriptionTextArea.getText();
@@ -235,6 +263,7 @@ if (validateInput()){
         }
         return isValid;
     }
+
     private void populateTextFields(Lecon lesson) {
         titleTextField.setText(lesson.getTitre());
         descriptionTextArea.setText(lesson.getDescription());
