@@ -95,7 +95,11 @@ public class CoursController {
             String image = imageField.getText().trim();
             String price = priceField.getText().trim();
 
-            // Validation can be added here for each field
+            boolean isUnique = coursService.checkCourseNameUnique(nomCours);
+            if (!isUnique) {
+                showAlert(Alert.AlertType.WARNING,"Duplicate Entry", "Ce cours existe déjà.");
+                return;
+            }
 
             // Create a new Cours object with the collected information
             Cours cours = new Cours( nomCours, description, avancement, image, price); // Assuming ID is auto-generated

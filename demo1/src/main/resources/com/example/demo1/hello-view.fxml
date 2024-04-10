@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,111 +14,103 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.HBox?>
-<AnchorPane style="-fx-background-radius: 20;" stylesheets="@Css/Fullpackstyling.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.DashboardController">
-<!--Welcome to lexiLearn Dashboard !-->
-    <children>
-        <AnchorPane id="mainPane" prefHeight="616.0" prefWidth="993.0" style="-fx-background-color: #18202b;">
-         <ScrollPane layoutX="200.0" layoutY="50.0">
-            <content>
-                  <StackPane fx:id="contentArea" prefHeight="566" prefWidth="793" style="-fx-background-color: #13293d; -fx-background-radius: 15;">
-                      <children>
-                          <VBox alignment="CENTER" spacing="20" styleClass="home-container">
-                              <ImageView>
-                                  <image>
-                                      <Image url="@Images/logo.jpg" />
-                                  </image>
-                              </ImageView>
-                              <Label text="Welcome to LexiLearn" styleClass="welcome-label" />
-                              <Label text="Your go-to platform for interactive learning." styleClass="slogan-label" />
-                              <HBox alignment="CENTER" spacing="15">
-                                  <Button text="Get Started" fx:id="getStartedButton"  styleClass="get-started-button"/>
-                                  <Button text="Learn More" fx:id="learnMoreButton"  styleClass="learn-more-button"/>
-                              </HBox>
-                          </VBox>
-                      </children>
+<AnchorPane id="mainPane" style="-fx-background-radius: 20;" stylesheets="@Css/Fullpackstyling.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.demo1.Controllers.DashboardController">
+    <!--Welcome to lexiLearn Dashboard !-->
+
+    <AnchorPane id="mainPane" prefHeight="616.0" prefWidth="993.0" style="-fx-background-color: #18202b;">
+        <ScrollPane layoutX="200.0" layoutY="50.0">
+            <StackPane fx:id="contentArea" prefHeight="566" prefWidth="793"
+                       style="-fx-background-color: #13293d; -fx-background-radius: 15;">
                 <!-- Content area where different screens will be loaded houni besh tzid navigation tae views -->
+                <VBox alignment="CENTER" spacing="20" styleClass="home-container">
+                    <ImageView>
+                        <Image url="@Images/logo.jpg"/>
+                    </ImageView>
+                    <Label text="Welcome to LexiLearn" styleClass="welcome-label"/>
+                    <Label text="Your go-to platform for interactive learning." styleClass="slogan-label"/>
+                    <HBox alignment="CENTER" spacing="15">
+                        <Button text="Get Started" fx:id="getStartedButton" styleClass="get-started-button"/>
+                        <Button text="Learn More" fx:id="learnMoreButton" styleClass="learn-more-button"/>
+                    </HBox>
+                </VBox>
             </StackPane>
 
-            </content>
-         </ScrollPane>
+        </ScrollPane>
 
-            <VBox fx:id="sideMenu" layoutY="1.0" prefHeight="616.0" prefWidth="200" style="-fx-background-color: #243a50; -fx-background-radius: 0 15 15 0;">
-                <children>
-                    <Pane fx:id="logoContainer" prefHeight="150.0" prefWidth="200" style="-fx-background-color: #243a50;">
-                        <children>
-                            <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@Images/logo.jpg" />
-                                </image>
-                            </ImageView>
-                            <Label layoutX="51.0" layoutY="114.0" text="LexiLearn" textFill="WHITE">
-                                <font>
-                                    <Font size="24.0" />
-                                </font>
-                                <padding>
-                                    <Insets bottom="10.0" />
-                                </padding>
-                            </Label>
-                        </children>
-                    </Pane>
+        <VBox fx:id="sideMenu" layoutY="1.0" prefHeight="616.0" prefWidth="200"
+              style="-fx-background-color: #243a50; -fx-background-radius: 0 15 15 0;">
+            <Pane  prefHeight="150.0" prefWidth="200" style="-fx-background-color: #243a50;">
+                <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@Images/logo.jpg"/>
+                </ImageView>
+                <Label layoutX="51.0" layoutY="114.0" text="LexiLearn" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0"/>
+                    </padding>
+                </Label>
+            </Pane>
 
-                    <Button fx:id="coursesButton" text="Courses" onAction="#toggleCoursesPane" styleClass="side-menu-button" >
-                        <graphic>
-                            <FontAwesomeIconView glyphName="UNIVERSITY" styleClass="button-icon" />
-                        </graphic>
-                    </Button>
-                    <VBox fx:id="coursesPane" styleClass="side-sub-menu" visible="false" managed="false">
-                        <children>
-                            <Button fx:id="allCoursesCheckBox" text="All Courses" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                            <Button fx:id="addCourseCheckBox" text="Add Course" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                            <Button fx:id="updateCourseCheckBox" text="Update Course" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                        </children>
-                    </VBox>
-
-                        </children>
-                <children>
-                    <Button fx:id="LessonsButton" text="Lessons" onAction="#toggleLessonsPane" styleClass="side-menu-button" >
-                        <graphic>
-                            <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
-                        </graphic>
-                    </Button>
-                    <VBox fx:id="lessonsPane" styleClass="side-sub-menu" visible="false" managed="false">
-                        <children>
-                            <Button fx:id="allLessons" text="All Lessons" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                            <Button fx:id="addLesson" text="Add Lesson" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                            <Button fx:id="updateLesson" text="Update Lesson" onAction="#loadView" styleClass="side-menu-button" >
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
-                                </graphic>
-                            </Button>
-                </children>
-                    </VBox>
-
-                </children>
+            <Button fx:id="coursesButton" text="Courses" onAction="#toggleCoursesPane"
+                    styleClass="action-buttons">
+                <graphic>
+                    <FontAwesomeIconView glyphName="UNIVERSITY" styleClass="button-icon"/>
+                </graphic>
+            </Button>
+            <VBox fx:id="coursesPane" styleClass="side-sub-menu" visible="false" managed="false">
+                <Button fx:id="allCoursesCheckBox" text="All Courses" onAction="#loadView"
+                        styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="addCourseCheckBox" text="Add Course" onAction="#loadView"
+                        styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="updateCourseCheckBox" text="Update Course" onAction="#loadView"
+                        styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
             </VBox>
 
+            <Button fx:id="LessonsButton" text="Lessons" onAction="#toggleLessonsPane"
+                    styleClass="side-menu-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon"/>
+                </graphic>
+            </Button>
+            <VBox fx:id="lessonsPane" styleClass="side-sub-menu" visible="false" managed="false">
+                <Button fx:id="allLessons" text="All Lessons" onAction="#loadView"
+                        styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="addLesson" text="Add Lesson" onAction="#loadView" styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="updateLesson" text="Update Lesson" onAction="#loadView"
+                        styleClass="side-menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon"/>
+                    </graphic>
+                </Button>
+            </VBox>
 
-        </AnchorPane>
-    </children>
+        </VBox>
 
+
+    </AnchorPane>
 </AnchorPane>

@@ -84,6 +84,7 @@ public class DashboardController {
             }
 
             if (view != null) {
+                contentArea.getChildren().clear();
                 contentArea.getChildren().setAll(view);
             }
         } catch (NullPointerException e) {

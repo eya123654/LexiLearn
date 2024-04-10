@@ -106,5 +106,19 @@ public Cours readSingle(int id) throws SQLException {
     public Cours findbyId(int id) throws SQLException {
         return null;
     }
+    public boolean checkCourseNameUnique(String courseName) {
+        String query = "SELECT count(*) FROM cours WHERE nom_cours = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, courseName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; // Retourne vrai si aucun enregistrement n'est trouvé
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

@@ -13,14 +13,14 @@
 .scroll-bar .thumb {
     -fx-background-color: #B6B6B6;
 }
-
 .button {
     -fx-background-color: #2c3e50;
     -fx-text-fill: white;
-    -fx-background-radius: 0;
+    -fx-background-radius: 5;
     -fx-font-size: 14px;
-    -fx-text-align: center;
     -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-cursor: hand;
 }
 
 .button:hover {
@@ -29,56 +29,37 @@
 
 .button:pressed {
     -fx-background-color: #2c3e50;
-}
-.button1 {
-    -fx-background-color: #3D5A80;
-    -fx-background-radius: 30 0 0 30;
-}
-.button1:hover {
-    -fx-background-color: #507DBC;
-    -fx-background-radius: 30 0 0 30;
-}
-.button1:pressed {
-    -fx-background-color: #293B5F;
-    -fx-background-radius: 30 0 0 30;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 1);
 }
 
-.button2 {
+/* Specific Button Styles */
+.button1, .button2, .button3, .button4 {
     -fx-background-color: #3D5A80;
+    -fx-text-fill: white;
     -fx-background-radius: 20;
-}
-.button2:hover {
-    -fx-background-color: #507DBC;
-    -fx-background-radius: 20;
-}
-.button2:pressed {
-    -fx-background-color: #293B5F;
-    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
 }
 
-.button3 {
-    -fx-background-color: #1E2A44;
-    -fx-background-radius: 0;
-}
-.button3:hover {
+.button1:hover, .button2:hover, .button3:hover, .button4:hover {
     -fx-background-color: #507DBC;
 }
-.button3:pressed {
+
+.button1:pressed, .button2:pressed, .button3:pressed, .button4:pressed {
     -fx-background-color: #293B5F;
+    -fx-background-radius: 20;
 }
 
 .button4 {
     -fx-background-color: linear-gradient(to top left, #4091C9, #AED6F1);
-    -fx-background-radius: 30;
 }
 .button4:hover {
     -fx-background-color: linear-gradient(to top left, #AED6F1, #4091C9);
-    -fx-background-radius: 30;
 }
 .button4:pressed {
     -fx-background-color: linear-gradient(to top left, #4091C9, #AED6F1);
-    -fx-background-radius: 30;
 }
+
 
 .combo-box {
     -fx-background-color: #1E2A44;
