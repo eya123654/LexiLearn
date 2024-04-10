@@ -34,7 +34,8 @@ public class DashboardController {
 
     @FXML
     private Button coursesButton;
-
+    @FXML
+    private Button welcome;
     @FXML
     private Accordion coursesAccordion;
 
@@ -55,6 +56,7 @@ public class DashboardController {
         coursesPane.setManaged(!coursesPane.isManaged());
 
     }
+
     @FXML
     private void toggleLessonsPane(ActionEvent event) {
         lessonsPane.setVisible(!lessonsPane.isVisible());
@@ -80,6 +82,10 @@ public class DashboardController {
 
             } else if (event.getSource() == updateLesson) {
                 view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/leçons/UpdateLesson.fxml")));
+
+            }
+            else if (event.getSource() == welcome) {
+                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/CoursFront/displayCourses.fxml")));
 
             }
 

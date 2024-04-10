@@ -46,7 +46,7 @@
                      <Image url="@Images/Icons/study.png" />
                   </image>
                </ImageView>
-               <Button style="-fx-font-size: 14px;" text="Welcome" textFill="WHITE" />
+               <Button fx:id="welcome" onAction="#loadView" style="-fx-font-size: 14px;" text="Welcome" textFill="WHITE" />
             </HBox>
             <HBox alignment="CENTER" spacing="5">
                <ImageView fitHeight="24.0" fitWidth="24.0">

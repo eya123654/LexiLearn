@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://
+javafx.com/fxml/1" prefHeight="200.0" prefWidth="400.0" styleClass="root">
+    <stylesheets>
+        <URL value="@../../Css/front.css" />
+    </stylesheets>
+    <children>
+        <VBox fx:id="card" prefHeight="200.0" prefWidth="150.0" styleClass="card" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <ImageView>
+                <clip>
+                    <!-- Radius should be half of the smallest dimension (width/height) of the ImageView -->
+                    <Circle radius="45.0" centerX="45.0" centerY="45.0"/>
+                </clip>
+                <Image url="@../../Images/person.jpg"/>
+            </ImageView>
+            <Label text="Card Title" styleClass="card-title"/>
+            <Label text="Card description goes here. Keep it short and sweet, but not too short that it's not informative." styleClass="card-text" wrapText="true"/>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Action 1" styleClass="card-button"/>
+                <Button text="Action 2" styleClass="card-button"/>
+            </HBox>
+        </VBox>
+        <Label text="hemmmmmmmmmmmmmmmmmmm" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+    </children>
 </AnchorPane>
