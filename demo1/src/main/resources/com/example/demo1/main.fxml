@@ -1,125 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.paint.Color?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<AnchorPane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="733.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" stylesheets="@Css/Fullpackstyling.css" fx:controller="com.example.demo1.Controllers.DashboardController">
+<AnchorPane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1276.0" stylesheets="@Css/Fullpackstyling.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.DashboardController">
 
 
-   <AnchorPane prefHeight="733.0" prefWidth="239.0" style="-fx-background-color: #012a4a;" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+   <AnchorPane prefHeight="733.0" prefWidth="239.0" style="-fx-background-color: #012a4a;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
       <HBox>
 
-      <VBox fx:id="sideMenu" spacing="20" alignment="TOP_CENTER" fillWidth="true" layoutY="10" prefWidth="239.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-
-         <ImageView fitHeight="108.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+      <VBox fx:id="sideMenu" alignment="TOP_CENTER" fillWidth="true" layoutY="10" prefWidth="239.0" spacing="20" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@Images/logo.jpg"/>
+               <Image url="@Images/person.jpg"/>
             </image>
+            <clip>
+               <!-- Radius is now 50.0 which is half of the fitHeight and fitWidth -->
+               <Circle radius="50.0" centerX="50.0" centerY="50.0"/>
+            </clip>
+            <VBox.margin>
+               <Insets bottom="10.0" top="50.0"/>
+            </VBox.margin>
          </ImageView>
-         <Label text="LexiLearn" textFill="WHITE" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-         <Separator/>
+
+
+
+         <Label text="Admin" textFill="#e7e5e5">
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin>
+         </Label>
+
+         <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="LexiLearn" textFill="WHITE" />
+         <Separator />
          <VBox spacing="30">
             <HBox alignment="CENTER" spacing="5">
                <ImageView fitHeight="24.0" fitWidth="24.0">
                   <image>
-                     <Image url="@Images/Icons/study.png"/>
+                     <Image url="@Images/Icons/study.png" />
                   </image>
                </ImageView>
-               <Button text="Welcome" textFill="WHITE" style="-fx-font-size: 14px;"/>
+               <Button style="-fx-font-size: 14px;" text="Welcome" textFill="WHITE" />
             </HBox>
             <HBox alignment="CENTER" spacing="5">
                <ImageView fitHeight="24.0" fitWidth="24.0">
                   <image>
-                     <Image url="@Images/Icons/books.png"/>
+                     <Image url="@Images/Icons/books.png" />
                   </image>
                </ImageView>
-               <Button fx:id="coursesButton" text="Courses" onAction="#toggleCoursesPane" textFill="WHITE" style="-fx-font-size: 14px;"/>
+               <Button fx:id="coursesButton" onAction="#toggleCoursesPane" style="-fx-font-size: 14px;" text="Courses" textFill="WHITE" />
             </HBox>
-            <VBox fx:id="coursesPane" styleClass="side-sub-menu" visible="false" managed="false">
-               <Button fx:id="allCoursesCheckBox" text="All Courses" onAction="#loadView"
-                       styleClass="side-menu-button">
+            <VBox fx:id="coursesPane" managed="false" styleClass="side-sub-menu" visible="false">
+               <Button fx:id="allCoursesCheckBox" onAction="#loadView" styleClass="side-menu-button" text="All Courses">
                   <graphic>
-                     <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
                   </graphic>
                </Button>
-               <Button fx:id="addCourseCheckBox" text="Add Course" onAction="#loadView"
-                       styleClass="side-menu-button">
+               <Button fx:id="addCourseCheckBox" onAction="#loadView" styleClass="side-menu-button" text="Add Course">
                   <graphic>
-                     <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
                   </graphic>
                </Button>
-               <Button fx:id="updateCourseCheckBox" text="Update Course" onAction="#loadView"
-                       styleClass="side-menu-button">
+               <Button fx:id="updateCourseCheckBox" onAction="#loadView" styleClass="side-menu-button" text="Update Course">
                   <graphic>
-                     <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
                   </graphic>
                </Button>
             </VBox>       <!--end course button and start lesson button-->
             <HBox alignment="CENTER" spacing="5">
                <ImageView fitHeight="36.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@Images/Icons/lessons1.png"/>
+                  <Image url="@Images/Icons/lessons1.png" />
                </ImageView>
-            <Button fx:id="LessonsButton" onAction="#toggleLessonsPane" prefHeight="21.0"
-                    text="Lessons" textFill="WHITE">
+            <Button fx:id="LessonsButton" onAction="#toggleLessonsPane" prefHeight="21.0" text="Lessons" textFill="WHITE">
                <font>
-                  <Font name="Tahoma Bold" size="17.0"/>
+                  <Font name="Tahoma Bold" size="17.0" />
                </font>
             </Button>
 
             </HBox>
-            <VBox fx:id="lessonsPane" styleClass="side-sub-menu" visible="false" managed="false">
-               <Button fx:id="allLessons" text="All Lessons" onAction="#loadView"
-                       styleClass="side-menu-button">
+            <VBox fx:id="lessonsPane" managed="false" styleClass="side-sub-menu" visible="false">
+               <Button fx:id="allLessons" onAction="#loadView" styleClass="side-menu-button" text="All Lessons">
                   <graphic>
-                     <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="BOOK" styleClass="button-icon" />
                   </graphic>
                </Button>
-               <Button fx:id="addLesson" text="Add Lesson" onAction="#loadView" styleClass="side-menu-button">
+               <Button fx:id="addLesson" onAction="#loadView" styleClass="side-menu-button" text="Add Lesson">
                   <graphic>
-                     <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="PLUS_CIRCLE" styleClass="button-icon" />
                   </graphic>
                </Button>
-               <Button fx:id="updateLesson" text="Update Lesson" onAction="#loadView"
-                       styleClass="side-menu-button">
+               <Button fx:id="updateLesson" onAction="#loadView" styleClass="side-menu-button" text="Update Lesson">
                   <graphic>
-                     <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon"/>
+                     <FontAwesomeIconView glyphName="EDIT" styleClass="button-icon" />
                   </graphic>
                </Button>
             </VBox>
             <!--end lesson button-->
             <!-- Additional buttons and icons follow the same pattern as above -->
          </VBox>
-         <Separator/>
+         <Separator />
          <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="logout-icon">
             <image>
-               <Image url="@Images/Icons/logout.png"/>
+               <Image url="@Images/Icons/logout.png" />
             </image>
          </ImageView>
       </VBox>
       </HBox>
    </AnchorPane>
-         <ScrollPane layoutX="200.0" layoutY="50.0"  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="239" AnchorPane.rightAnchor="0">
-            <StackPane fx:id="contentArea" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                       prefHeight="920.0" prefWidth="1276.0"
-                       style="-fx-background-color: #13293d; -fx-background-radius: 15;">
+         <ScrollPane layoutX="200.0" layoutY="50.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="239" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <StackPane fx:id="contentArea" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1276.0" style="-fx-background-color: #13293d; -fx-background-radius: 15;">
                <!-- Content area where different screens will be loaded houni besh tzid navigation tae views -->
                <VBox alignment="CENTER" spacing="20" styleClass="home-container">
                   <ImageView>
-                     <Image url="@Images/logo.jpg"/>
+                     <Image url="@Images/logo.jpg" />
                   </ImageView>
-                  <Label text="Welcome to LexiLearn" styleClass="welcome-label"/>
-                  <Label text="Your go-to platform for interactive learning." styleClass="slogan-label"/>
+                  <Label styleClass="welcome-label" text="Welcome to LexiLearn" />
+                  <Label styleClass="slogan-label" text="Your go-to platform for interactive learning." />
                   <HBox alignment="CENTER" spacing="15">
-                     <Button text="Get Started" fx:id="getStartedButton" styleClass="get-started-button"/>
-                     <Button text="Learn More" fx:id="learnMoreButton" styleClass="learn-more-button"/>
+                     <Button fx:id="getStartedButton" styleClass="get-started-button" text="Get Started" />
+                     <Button fx:id="learnMoreButton" styleClass="learn-more-button" text="Learn More" />
                   </HBox>
                </VBox>
             </StackPane>
@@ -129,55 +134,34 @@
 
       <!--header-->
 
-      <AnchorPane layoutX="239.0" prefHeight="53.0" maxWidth="-Infinity"  minWidth="-Infinity"
-                   prefWidth="1276.0" style="-fx-background-color: #013a63;">
+      <AnchorPane layoutX="239.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="1276.0" style="-fx-background-color: #013a63;">
          <children>
-            <ImageView fitHeight="44.0" fitWidth="55.0" layoutX="1192.0" layoutY="5.0" nodeOrientation="RIGHT_TO_LEFT"
-                       pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="44.0" fitWidth="55.0" layoutX="1192.0" layoutY="5.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/Icons/side2.png"/>
+                  <Image url="@Images/Icons/side2.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="1145.0" layoutY="9.0" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="1145.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/Icons/notif.png"/>
+                  <Image url="@Images/Icons/notif.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="24.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/Icons/dash.png"/>
+                  <Image url="@Images/logo.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="81.0" layoutY="18.0" prefHeight="23.0" prefWidth="323.0"
-                   text="Welcome To LexiLearn Dashboard !">
+            <Label layoutX="81.0" layoutY="18.0" prefHeight="23.0" prefWidth="323.0" text="Welcome To LexiLearn Dashboard !" textFill="black">
                <font>
-                  <Font name="Tahoma Bold" size="18.0"/>
+                  <Font name="Tahoma Bold" size="18.0" />
                </font>
-               <textFill>
-                  <LinearGradient endX="1.0" startX="0.2037914691943128">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color/>
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="1.0" green="1.0" blue="1.0"/>
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </textFill>
+
             </Label>
-            <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="411.0" layoutY="9.0" pickOnBounds="true"
-                       preserveRatio="true">
+           <!-- <ImageView fitHeight="40.0" fitWidth="36.0" layoutX="411.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/Icons/learn.png"/>
+                  <Image url="@Images/Icons/learn.png" />
                </image>
-            </ImageView>
+            </ImageView>-->
          </children>
 
 
