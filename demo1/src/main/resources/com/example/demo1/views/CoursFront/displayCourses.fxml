@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Button?>
 
-<?import java.net.URL?>
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://
-javafx.com/fxml/1" prefHeight="200.0" prefWidth="400.0" styleClass="root">
-    <stylesheets>
-        <URL value="@../../Css/front.css" />
-    </stylesheets>
-    <children>
-        <VBox fx:id="card" prefHeight="200.0" prefWidth="150.0" styleClass="card" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <ImageView>
-                <clip>
-                    <!-- Radius should be half of the smallest dimension (width/height) of the ImageView -->
-                    <Circle radius="45.0" centerX="45.0" centerY="45.0"/>
-                </clip>
-                <Image url="@../../Images/person.jpg"/>
-            </ImageView>
-            <Label text="Card Title" styleClass="card-title"/>
-            <Label text="Card description goes here. Keep it short and sweet, but not too short that it's not informative." styleClass="card-text" wrapText="true"/>
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Action 1" styleClass="card-button"/>
-                <Button text="Action 2" styleClass="card-button"/>
-            </HBox>
-        </VBox>
-        <Label text="hemmmmmmmmmmmmmmmmmmm" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
-    </children>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.FrontCoursController">
+    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+
+    <FlowPane fx:id="coursesContainer" hgap="20" vgap="20" alignment="TOP_CENTER" >
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+        </padding>
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+        </padding>
+    <HBox prefHeight="251.0" prefWidth="374.0" AnchorPane.topAnchor="70.0">
+      <children>
+          <VBox fx:id="courseCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="207.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: white;">
+              <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+              </padding>
+              <Label fx:id="courseName" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Course Name" />
+              <Label fx:id="instructorName" style="-fx-font-size: 14;" text="Instructor Name" />
+              <Label fx:id="courseDescription" text="Short description here. This describes what the course is about." wrapText="true" />
+            <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" text="View Course" />
+          </VBox>
+          <ImageView fx:id="courseImage" fitHeight="251.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+
+              <Image url="@../../Images/public.jpg" />
+      
+             </ImageView>
+      </children>
+   </HBox>
+    </FlowPane>
+    </ScrollPane>
 </AnchorPane>

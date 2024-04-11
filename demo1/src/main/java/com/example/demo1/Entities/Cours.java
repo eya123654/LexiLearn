@@ -21,7 +21,11 @@ public class Cours {
         this.lessons = new ArrayList<>();
 
     }
-    public Cours(int id,String nom_cours, String description, int avancement, String image, String price) {
+
+    public Cours() {
+    }
+
+    public Cours(int id, String nom_cours, String description, int avancement, String image, String price) {
         this.id=id;
         this.nomCours = nom_cours;
         this.description = description;

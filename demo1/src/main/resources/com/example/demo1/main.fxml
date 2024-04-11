@@ -127,6 +127,7 @@
                      <Button fx:id="learnMoreButton" styleClass="learn-more-button" text="Learn More" />
                   </HBox>
                </VBox>
+
             </StackPane>
 
          </ScrollPane>

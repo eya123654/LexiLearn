@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -44,7 +45,8 @@ public class DashboardController {
     @FXML
     private VBox lessonsPane;
 
-
+    @FXML
+    private FlowPane cardsContainer;
     @FXML
     private void initialize() {
 
