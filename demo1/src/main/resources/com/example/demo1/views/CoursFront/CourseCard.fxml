@@ -10,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="277.0" prefWidth="375.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseCardController">
+
     <HBox prefHeight="251.0" prefWidth="374.0" AnchorPane.topAnchor="70.0">
         <children>
             <VBox fx:id="courseCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="207.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: white;">
@@ -19,7 +20,7 @@
                 <Label fx:id="courseName" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Course Name" />
                 <Label fx:id="instructorName" style="-fx-font-size: 14;" text="Instructor Name" />
                 <Label fx:id="courseDescription" text="Short description here. This describes what the course is about." wrapText="true" />
-                <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" text="View Course" />
+                <Button fx:id="viewCourseButton" onAction="#showCourseDetails" alignment="BOTTOM_LEFT" mnemonicParsing="false" text="View Course" />
             </VBox>
             <ImageView fx:id="courseImage" fitHeight="251.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
 

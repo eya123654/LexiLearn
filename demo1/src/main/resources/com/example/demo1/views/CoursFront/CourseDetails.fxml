@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
+    <VBox fx:id="courseDetailsBox" minWidth="400" minHeight="200" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
+        <Label fx:id="lblCourseTitle" text="Course Title" />
+        <Label fx:id="lblCourseDescription" text="Course Description" />
+        <!-- More details about the course -->
+
+        <!-- ListView for lessons -->
+        <ListView fx:id="listViewLessons"  prefWidth="300">
+            <!-- Items will be added here by the controller -->
+        </ListView>
+
+        <!-- Button to go back or close the details view -->
+        <Button onAction="#onBackButtonClicked" text="Back" />
+    </VBox>
+</AnchorPane>

@@ -17,6 +17,7 @@ public class Home extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent rootNode = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/main.fxml")));
+
             primaryStage.setTitle("Educational Platform");
             primaryStage.setScene(new Scene(rootNode, 993, 616));
             primaryStage.show();

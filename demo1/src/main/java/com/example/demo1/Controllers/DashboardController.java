@@ -1,17 +1,20 @@
 package com.example.demo1.Controllers;
 
+import com.example.demo1.Entities.Cours;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.Objects;
 
-public class DashboardController {
+public class DashboardController  implements CourseCardController.CourseDetailsCallback {
 
     @FXML
     private StackPane contentArea;
@@ -52,6 +55,7 @@ public class DashboardController {
 
     }
 
+
     @FXML
     private void toggleCoursesPane(ActionEvent event) {
         coursesPane.setVisible(!coursesPane.isVisible());
@@ -69,6 +73,8 @@ public class DashboardController {
     public void loadView(ActionEvent event) {
         try {
             Node view = null;
+            FXMLLoader loader = null;
+
             if (event.getSource() == allCoursesCheckBox) {
                 view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/Cours/ShowCourses.fxml")));
             } else if (event.getSource() == addCourseCheckBox) {
@@ -87,7 +93,11 @@ public class DashboardController {
 
             }
             else if (event.getSource() == welcome) {
-                view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/demo1/views/CoursFront/displayCourses.fxml")));
+                 loader = new FXMLLoader(getClass().getResource("/com/example/demo1/views/CoursFront/DisplayCourses.fxml"));
+                Parent root = loader.load();
+                FrontCoursController frontCoursController = loader.getController();
+                frontCoursController.setDashboardController(this);
+                view=root;
 
             }
 
@@ -103,7 +113,10 @@ public class DashboardController {
             showAlert("Load Error", "An unexpected error occurred: " + e.getMessage());
         }
     }
-
+    @Override
+    public void onCourseSelected(Cours cours) {
+        showCourseDetails(cours);
+    }
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -111,5 +124,18 @@ public class DashboardController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    public void showCourseDetails(Cours cours) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo1/views/CoursFront/CourseDetails.fxml"));
+            Node detailsView = loader.load();
+            CourseDetailsController controller = loader.getController();
 
+            controller.populateCourseDetails(cours);
+            System.out.println("Loaded details view for: " + cours.getNomCours());
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().setAll(detailsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
 }
