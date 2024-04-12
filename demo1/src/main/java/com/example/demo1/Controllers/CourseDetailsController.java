@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
@@ -23,17 +24,32 @@ public class CourseDetailsController {
     private VBox courseDetailsBox;
     private Cours currentCourse;
 
+    public ListView<Lecon> getListViewLessons() {
+        return listViewLessons;
+    }
+    @FXML
+    private void initialize() {
+
+    }
     // Method to populate course details
     public void populateCourseDetails(Cours course) {
         currentCourse = course;
         lblCourseTitle.setText(course.getNomCours());
         lblCourseDescription.setText(course.getDescription());
-       if(courseDetailsBox!=null){
-           System.out.println("not null");
-       }else {
-        Platform.runLater(() -> {
-            System.out.println("Course details box size: width = " + courseDetailsBox.getWidth() + ", height = " + courseDetailsBox.getHeight());
-        });}
+
+        // Here is where you set the custom cell factory for the ListView
+        listViewLessons.setCellFactory(listView -> new ListCell<Lecon>() {
+            @Override
+            protected void updateItem(Lecon lecon, boolean empty) {
+                super.updateItem(lecon, empty);
+                if (empty || lecon == null) {
+                    setText(null);
+                } else {
+                    setText(lecon.getTitre() + " - " + lecon.getDescription());
+                    // You can further customize the cell here, e.g., by adding graphics
+                }
+            }
+        });
 
         // Assuming you have a method getLessons() that returns a list of lessons
         listViewLessons.getItems().setAll(course.getLessons());
