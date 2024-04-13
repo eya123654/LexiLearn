@@ -138,7 +138,7 @@ public class LeconService implements IService<Lecon> {
         throw new SQLException("Course with ID " + coursId + " not found.");
     }
     public boolean checkCourseNameUnique(String lessonName) {
-        String query = "SELECT count(*) FROM lecon WHERE tittre = ?";
+        String query = "SELECT count(*) FROM lecon WHERE titre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, lessonName);
             try (ResultSet rs = stmt.executeQuery()) {
