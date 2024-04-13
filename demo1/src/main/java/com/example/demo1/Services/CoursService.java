@@ -1,6 +1,7 @@
 package com.example.demo1.Services;
 
 import com.example.demo1.Entities.Cours;
+import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,12 +95,36 @@ public Cours readSingle(int id) throws SQLException {
 
 
                 );
+                cours1.setLessons(fetchLessonsForCourse(cours1));
+
                 cours.add(cours1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cours;
+    }
+    public ObservableList<Lecon> fetchLessonsForCourse(Cours course) {
+        ObservableList<Lecon> lessons = FXCollections.observableArrayList();
+        String query = "SELECT * FROM lecon WHERE cours_id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, course.getId());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    lessons.add(new Lecon(
+                            rs.getInt("id"),
+                            course,
+                            rs.getString("titre"),
+                            rs.getString("description"),
+                            rs.getString("contenu"),
+                            rs.getBoolean("completed")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lessons;
     }
 
     @Override

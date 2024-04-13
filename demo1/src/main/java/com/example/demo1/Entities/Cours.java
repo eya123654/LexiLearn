@@ -1,5 +1,8 @@
 package com.example.demo1.Entities;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +14,15 @@ public class Cours {
     private int avancement;
     private String image;
     private String price;
-    private List<Lecon> lessons;
+    private ObservableList<Lecon> lessons = FXCollections.observableArrayList();
+
     public Cours(String nom_cours, String description, int avancement, String image, String price) {
         this.nomCours = nom_cours;
         this.description = description;
         this.avancement = avancement;
         this.image = image;
         this.price = price;
-        this.lessons = new ArrayList<>();
+
 
     }
 
@@ -32,14 +36,14 @@ public class Cours {
         this.avancement = avancement;
         this.image = image;
         this.price = price;
-        this.lessons = new ArrayList<>();
+
 
     }
-    public List<Lecon> getLessons() {
+    public ObservableList<Lecon> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<Lecon> lessons) {
+    public void setLessons(ObservableList<Lecon> lessons) {
         this.lessons = lessons;
     }
 
