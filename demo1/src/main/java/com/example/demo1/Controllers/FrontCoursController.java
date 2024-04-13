@@ -3,6 +3,7 @@ package com.example.demo1.Controllers;
 import com.example.demo1.Entities.Cours;
 import com.example.demo1.Services.CoursService;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +16,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Pagination;
 
 import java.io.IOException;
 
 public class FrontCoursController {
+    @FXML
+    private Pagination pagination;
 
 
     @FXML
@@ -48,10 +52,28 @@ public class FrontCoursController {
     private void loadCourses() {
         CoursService coursService = new CoursService();
         ObservableList<Cours> courses = coursService.readAll();
+        int itemsPerPage = 5; // Nombre de cours par page
+        int pageCount = (int) Math.ceil(courses.size() / (double) itemsPerPage);
+        pagination.setPageCount(pageCount);
+        pagination.setPageFactory(this::createPage);
         for (Cours course : courses) {
 
             coursesContainer.getChildren().add(createCourseCard(course));
         }
+    }
+    private Node createPage(int pageIndex) {
+        int itemsPerPage = 5;
+        CoursService coursService = new CoursService();
+        ObservableList<Cours> allCourses = coursService.readAll();
+        int fromIndex = pageIndex * itemsPerPage;
+        int toIndex = Math.min(fromIndex + itemsPerPage, allCourses.size());
+        ObservableList<Cours> coursesOnPage = FXCollections.observableArrayList(allCourses.subList(fromIndex, toIndex));
+
+        FlowPane pageContent = new FlowPane();
+        for (Cours course : coursesOnPage) {
+            pageContent.getChildren().add(createCourseCard(course));
+        }
+        return pageContent;
     }
 
     private Node createCourseCard(Cours course) {
@@ -71,40 +93,6 @@ public class FrontCoursController {
             return new VBox(new Label("Error loading course card."));
         }
     }
- /*   public Node CourseDetails(Cours cours) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo1/views/CoursFront/CourseDetails.fxml"));
-            Node detailsView = loader.load();
-            CourseDetailsController controller = loader.getController();
-
-            controller.populateCourseDetails(cours);
-            System.out.println("Is 'this' a CourseDetailsRequestListener? " + (this instanceof CourseDetailsRequestListener));
-
-
-
-            return detailsView;
-        } catch (IOException e) {
-            // Handle exceptions
-            e.printStackTrace();
-            return new VBox(new Label("Error loading course card."));
-        }
-    }*/
-
- /*   @FXML
-        public void showCourseDetails(Cours selectedCourse) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo1/views/CoursFront/CourseDetails.fxml"));
-                Parent detailsView = loader.load();
-                CourseDetailsController detailsController = loader.getController();
-                detailsController.populateCourseDetails(selectedCourse);
-                System.out.println("Loaded details view for: " + selectedCourse.getNomCours());
-
-                // This should be the mainStackPane that's part of the main application layout, not within a card.
-                mainStackPane.getChildren().setAll(detailsView);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }*/
-
+ 
 
 }

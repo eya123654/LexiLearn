@@ -18,5 +18,7 @@
         </padding>
 
     </FlowPane>
+        <Pagination fx:id="pagination" layoutX="10" layoutY="10" />
+
     </ScrollPane>
 </AnchorPane>

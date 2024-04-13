@@ -6,6 +6,7 @@ module demo1 {
     requires  de.jensd.fx.glyphs.fontawesome;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires com.google.protobuf;
     exports com.example.demo1 to javafx.graphics;
     opens com.example.demo1.Entities to javafx.base, javafx.fxml;
 
