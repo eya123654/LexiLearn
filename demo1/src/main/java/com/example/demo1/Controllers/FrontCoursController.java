@@ -93,6 +93,6 @@ public class FrontCoursController {
             return new VBox(new Label("Error loading course card."));
         }
     }
- 
+
 
 }

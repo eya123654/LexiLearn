@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,15 +12,17 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="649.0" prefWidth="941.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
-    <VBox AnchorPane.topAnchor="270.0" fx:id="courseDetailsBox" layoutY="217.0" minHeight="200" minWidth="400" prefHeight="433.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="courseDetailsBox" layoutY="217.0" minHeight="200" minWidth="400" prefHeight="604.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="270.0" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
         <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
         <!-- ListView for lessons -->
-        <ListView fx:id="listViewLessons" prefWidth="300" style="-fx-background-radius: 5; -fx-padding: 10;">
+        <ListView fx:id="listViewLessons" prefHeight="350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
             <!-- Items will be added here by the controller -->
         </ListView>
+       <ProgressBar fx:id="progressBar" layoutX="10" layoutY="10" prefWidth="200" />
+
     </VBox>
-   <AnchorPane layoutX="-1.0" layoutY="1.0" prefHeight="213.0" prefWidth="930.0" >
+   <AnchorPane layoutX="-1.0" layoutY="1.0" prefHeight="213.0" prefWidth="930.0">
       <children>
          <ImageView fitHeight="220.0" fitWidth="286.0" layoutX="647.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -31,7 +34,7 @@
          </ImageView>
          <AnchorPane layoutX="26.0" layoutY="9.0" prefHeight="200.0" prefWidth="466.0" style="-fx-background-color: #0077b6;">
             <children>
-               <VBox  layoutX="67.0" layoutY="26.0">
+               <VBox layoutX="67.0" layoutY="26.0">
                   <children>
                      <Label prefHeight="18.0" prefWidth="142.0" text="Course :" textFill="WHITE">
                         <font>

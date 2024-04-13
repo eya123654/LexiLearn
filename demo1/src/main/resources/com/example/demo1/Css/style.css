@@ -21,4 +21,15 @@
     -fx-font-size: 12px;
     -fx-text-fill: #34495e;
 }
+.progress-bar {
+    -fx-accent: #0078d7; /* Couleur bleue pour la partie remplie de la barre */
+}
+
+.progress-bar .bar {
+    -fx-background-color: derive(-fx-accent, 30%); /* Couleur plus claire pour la barre de progression */
+}
+
+.progress-bar .track {
+    -fx-background-color: #cccccc; /* Couleur de l'arrière-plan de la barre de progression */
+}
 

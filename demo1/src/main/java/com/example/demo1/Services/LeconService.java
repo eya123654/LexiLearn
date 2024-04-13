@@ -64,6 +64,8 @@ public class LeconService implements IService<Lecon> {
 
             preparedStatement.executeUpdate();
         }
+
+
     }
     @Override
     public ObservableList<Lecon> readAll() {
@@ -151,4 +153,14 @@ public class LeconService implements IService<Lecon> {
         }
         return false;
     }
+    public void markLessonCompleted(Lecon lecon) {
+        String sql = "UPDATE Lecon SET completed = TRUE WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setInt(1, lecon.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

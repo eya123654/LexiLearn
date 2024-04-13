@@ -3,11 +3,9 @@ package com.example.demo1.Controllers;
 import com.example.demo1.Entities.Cours;
 import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Services.CoursService;
+import com.example.demo1.Services.LeconService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -38,6 +36,10 @@ public class CourseDetailsController {
     private VBox courseDetailsBox;
     private Cours currentCourse;
     private CoursService coursService = new CoursService();
+    private LeconService leconService = new LeconService();
+    private Lecon lecon;
+    @FXML
+    private ProgressBar progressBar;
 
     public ListView<Lecon> getListViewLessons() {
         return listViewLessons;
@@ -58,17 +60,26 @@ public class CourseDetailsController {
                     Label titleLabel = new Label(lecon.getTitre());
                     Label descriptionLabel = new Label(lecon.getDescription());
                     Label contentLabel = new Label(lecon.getContenu());
+                    Label completedLabel = new Label(lecon.isCompleted() ? "Completed" : "Not Completed");
+
                     Button downloadButton = new Button("Download as PDF");
                     downloadButton.setOnAction(event -> downloadAsPDF(lecon));
 
+
+
                     Button passQuizButton = new Button("Pass The Quiz");
+                    leconService.markLessonCompleted(lecon);
+                    coursService.updateCourseProgress(currentCourse);
+                    progressBar.setProgress(currentCourse.getAvancement());
+                    System.out.println("Progress set to: " + progressBar.getProgress());
+                    listViewLessons.refresh();
                     titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
                     descriptionLabel.setStyle("-fx-font-size: 12px;");
                     contentLabel.setStyle("-fx-font-size: 12px; -fx-padding: 10px;");
                     downloadButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
                     passQuizButton.setStyle("-fx-background-color: green; -fx-text-fill: white;");
 
-                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel, downloadButton, passQuizButton);
+                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel,completedLabel, downloadButton, passQuizButton);
                     setGraphic(vbox);
                 }
 
@@ -152,6 +163,7 @@ public class CourseDetailsController {
         currentCourse = course;
         lblCourseTitle.setText(course.getNomCours());
         lblCourseDescription.setText(course.getDescription());
+
         System.out.println("Lessons loaded: " + coursService.fetchLessonsForCourse(course).size()); // Check the size of lessons
 
 

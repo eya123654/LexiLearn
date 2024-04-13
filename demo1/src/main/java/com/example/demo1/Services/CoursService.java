@@ -3,6 +3,7 @@ package com.example.demo1.Services;
 import com.example.demo1.Entities.Cours;
 import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Utils.DataSource;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -144,6 +145,25 @@ public Cours readSingle(int id) throws SQLException {
             e.printStackTrace();
         }
         return false;
+    }
+    public void updateCourseProgress(Cours course) {
+        int totalLessons = course.getLessons().size();
+        int completedLessons = (int) course.getLessons().stream().filter(Lecon::isCompleted).count();
+        int newProgress = (completedLessons * 100) / totalLessons; // Toujours en pourcentage
+        course.setAvancement(newProgress); // stocke la valeur entière, par exemple, 100 pour 100%
+
+        String sql = "UPDATE Cours SET avancement = ? WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, newProgress); // envoie l'entier, par exemple 100
+            stmt.setInt(2, course.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Convertit l'avancement en un double pour la ProgressBar
+        double progressForBar = newProgress / 100.0; // Convertit en double, par exemple, 1.0 pour 100%
+        
     }
 
 }
