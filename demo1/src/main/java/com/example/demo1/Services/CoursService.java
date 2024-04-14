@@ -161,9 +161,9 @@ public Cours readSingle(int id) throws SQLException {
             System.out.println(e.getMessage());
         }
 
-        // Convertit l'avancement en un double pour la ProgressBar
+
         double progressForBar = newProgress / 100.0; // Convertit en double, par exemple, 1.0 pour 100%
-        
+
     }
 
 }

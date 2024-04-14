@@ -36,17 +36,17 @@ public class CoursController {
     @FXML
     private TableView<Cours> courseTable;
     @FXML
-    private TableColumn<Cours, Integer> idColumn; // Assuming the ID is of type Integer
+    private TableColumn<Cours, Integer> idColumn;
     @FXML
     private TableColumn<Cours, String> nameColumn;
     @FXML
     private TableColumn<Cours, String> descriptionColumn;
     @FXML
-    private TableColumn<Cours, Integer> progressColumn; // Assuming the progress is of type Integer
+    private TableColumn<Cours, Integer> progressColumn;
     @FXML
     private TableColumn<Cours, String> imageColumn;
     @FXML
-    private TableColumn<Cours, String> priceColumn; // Assuming price is a String, adjust if it's another type
+    private TableColumn<Cours, String> priceColumn;
     @FXML
     private StackPane contentArea;
     @FXML
@@ -109,8 +109,8 @@ public class CoursController {
                     return;
                 }
 
-                // Create a new Cours object with the collected information
-                Cours cours = new Cours(nomCours, description, avancement, image, price); // Assuming ID is auto-generated
+
+                Cours cours = new Cours(nomCours, description, avancement, image, price);
                 coursService.ajouter(cours);
                 courseList.add(cours);
                 clearForm();

@@ -70,22 +70,18 @@ public class CourseCardController {
             try {
                 Image image;
                 if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-                    // Load image from URL
-                    image = new Image(imagePath, true); // true = load in background
+                    image = new Image(imagePath, true);
                 } else {
-                    // Load image from file system
                     imagePath = "@../../Images/public.jpg";
                     image = new Image(imagePath, true); // true = load in background
                 }
                 courseImage.setImage(image);
             } catch (Exception e) {
                 System.err.println("Error loading image: " + imagePath);
-                // Optionally, set a default or placeholder image
+
             }
-        } else {
-            // Handle cases where no image path is provided
-            // Optionally, set a default or placeholder image
         }
+
     }
 
 
@@ -104,17 +100,7 @@ public class CourseCardController {
         }
     }
 
-  /*  @FXML
-    private void showCourseDetails(ActionEvent event) throws IOException {
-        if (frontCoursController != null && cours != null) {
-            System.out.println("Requesting course details for: " + cours.getNomCours());
 
-            frontCoursController.CourseDetails(cours);
-        }else {
-            System.out.println("Either mainViewController or cours is null");
-        }
-    }
-*/
 
 }
 

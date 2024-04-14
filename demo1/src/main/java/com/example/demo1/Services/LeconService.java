@@ -145,7 +145,7 @@ public class LeconService implements IService<Lecon> {
             stmt.setString(1, lessonName);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) == 0; // Retourne vrai si aucun enregistrement n'est trouvé
+                    return rs.getInt(1) == 0; 
                 }
             }
         } catch (SQLException e) {

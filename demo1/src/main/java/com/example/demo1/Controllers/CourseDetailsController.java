@@ -56,7 +56,7 @@ public class CourseDetailsController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    VBox vbox = new VBox(5); // Use a VBox to stack elements vertically
+                    VBox vbox = new VBox(5);
                     Label titleLabel = new Label(lecon.getTitre());
                     Label descriptionLabel = new Label(lecon.getDescription());
                     Label contentLabel = new Label(lecon.getContenu());
@@ -72,7 +72,6 @@ public class CourseDetailsController {
                     coursService.updateCourseProgress(currentCourse);
                     progressBar.setProgress(currentCourse.getAvancement());
                     System.out.println("Progress set to: " + progressBar.getProgress());
-                    listViewLessons.refresh();
                     titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
                     descriptionLabel.setStyle("-fx-font-size: 12px;");
                     contentLabel.setStyle("-fx-font-size: 12px; -fx-padding: 10px;");
@@ -108,21 +107,20 @@ public class CourseDetailsController {
                     contentStream.beginText();
                     contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
                     contentStream.newLineAtOffset(160, 720); // Adjust x to align with your image
-                    contentStream.showText(lecon.getTitre()); // Title
+                    contentStream.showText(lecon.getTitre());
                     contentStream.endText();
 
                     // Draw the description with text wrapping
                     addWrappedText(contentStream, lecon.getDescription(), PDType1Font.HELVETICA, 12,100, 650, page.getMediaBox().getWidth() - 200);
 
                     // Draw the content with text wrapping
-                    addWrappedText(contentStream, lecon.getContenu(), PDType1Font.HELVETICA, 12, 100, 600, page.getMediaBox().getWidth() - 200); // Adjust y for where content starts
+                    addWrappedText(contentStream, lecon.getContenu(), PDType1Font.HELVETICA, 12, 100, 600, page.getMediaBox().getWidth() - 200);
                 }
 
                 document.save(file);
                 System.out.println("PDF saved to " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
-                // Handle exceptions
             }
         }
     }
@@ -154,7 +152,7 @@ public class CourseDetailsController {
                 contentStream.newLineAtOffset(xStart, nextY);
                 contentStream.showText(lineBuilder.toString());
                 contentStream.endText();
-                nextY -= fontSize * 1.2f + lastBlanks * 0.2f; // Adjust spacing
+                nextY -= fontSize * 1.2f + lastBlanks * 0.2f;
             }
         }
     }
@@ -164,16 +162,14 @@ public class CourseDetailsController {
         lblCourseTitle.setText(course.getNomCours());
         lblCourseDescription.setText(course.getDescription());
 
-        System.out.println("Lessons loaded: " + coursService.fetchLessonsForCourse(course).size()); // Check the size of lessons
+        System.out.println("Lessons loaded: " + coursService.fetchLessonsForCourse(course).size());
 
 
-        // Assuming you have a method getLessons() that returns a list of lessons
         listViewLessons.getItems().setAll(coursService.fetchLessonsForCourse(course));
     }
 
     @FXML
     private void onBackButtonClicked() {
-        // Logic to go back to the course list view
-        // This might involve telling the main UI controller to swap views
+
     }
 }

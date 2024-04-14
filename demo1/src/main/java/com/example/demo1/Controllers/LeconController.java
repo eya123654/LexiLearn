@@ -83,13 +83,13 @@ public class LeconController {
     }
 
     private void loadCourses() {
-        ObservableList<Cours> coursList = coursService.readAll(); // Make sure CoursService has a readAll method
+        ObservableList<Cours> coursList = coursService.readAll();
 
         courseComboBox.setItems(coursList);
         courseComboBox.setConverter(new StringConverter<Cours>() {
             @Override
             public String toString(Cours cours) {
-                return cours.getNomCours(); // Assuming Cours has a getNomCours() method
+                return cours.getNomCours();
             }
 
             @Override
@@ -104,8 +104,7 @@ public class LeconController {
         if (validateInput()) {
             Cours selectedCourse = courseComboBox.getSelectionModel().getSelectedItem();
             if (selectedCourse == null) {
-                // Alert user that a course must be selected
-                return;
+                 showAlert(Alert.AlertType.WARNING, "no selected  course", "please selesct a course");;
             }
 
             String title = titleTextField.getText();
@@ -169,7 +168,6 @@ public class LeconController {
 
                     leconService.update(leconToUpdate);
                     refreshCourseTable();
-                    // Optionally, confirm update to the user
                     showAlert(Alert.AlertType.INFORMATION, "lesson Updated", "The lesson was successfully updated.");
 
                 } else {
@@ -257,9 +255,9 @@ public class LeconController {
 
         if (selectedCourse == null) {
             isValid = false;
-            courseComboBox.setStyle("-fx-border-color: red;"); // Highlight the ComboBox in red if no course is selected
+            courseComboBox.setStyle("-fx-border-color: red;");
         } else {
-            courseComboBox.setStyle(""); // Remove highlighting if a course is selected
+            courseComboBox.setStyle("");
         }
         return isValid;
     }

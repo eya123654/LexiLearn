@@ -88,7 +88,6 @@ public class FrontCoursController {
             cardController.initData(course);
             return card;
         } catch (IOException e) {
-            // Handle exceptions
             e.printStackTrace();
             return new VBox(new Label("Error loading course card."));
         }
