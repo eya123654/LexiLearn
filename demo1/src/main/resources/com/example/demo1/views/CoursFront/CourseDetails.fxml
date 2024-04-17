@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="649.0" prefWidth="941.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController" AnchorPane.topAnchor="170.0" >
-    <VBox fx:id="courseDetailsBox" layoutY="217.0" minHeight="200" minWidth="400" prefHeight="604.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="170.0" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="843.0" prefWidth="1200.0" stylesheets="@../../Css/style.css" AnchorPane.topAnchor="170.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
+    <VBox fx:id="courseDetailsBox" layoutX="-1.0" layoutY="415.0" minHeight="200" minWidth="400" prefHeight="699.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="415.0" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
         <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
         <!-- ListView for lessons -->
@@ -23,47 +23,45 @@
 
     </VBox>
    <AnchorPane layoutX="-1.0" layoutY="1.0" prefHeight="213.0" prefWidth="930.0">
+      <effect>
+         <DropShadow />
+      </effect>
+   </AnchorPane>
+   <AnchorPane layoutX="32.0" layoutY="183.0" prefHeight="200.0" prefWidth="466.0" style="-fx-background-color: #0077b6;">
       <children>
-         <ImageView fitHeight="220.0" fitWidth="286.0" layoutX="647.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../Images/Icons/study.png" />
-            </image>
-            <effect>
-               <DropShadow />
-            </effect>
-         </ImageView>
-         <AnchorPane layoutX="26.0" layoutY="9.0" prefHeight="200.0" prefWidth="466.0" style="-fx-background-color: #0077b6;">
+         <VBox layoutX="67.0" layoutY="26.0">
             <children>
-               <VBox layoutX="67.0" layoutY="26.0">
-                  <children>
-                     <Label prefHeight="18.0" prefWidth="142.0" text="Course :" textFill="WHITE">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </VBox>
-               <Label layoutX="67.0" layoutY="57.0" prefHeight="18.0" prefWidth="142.0" text="Description :" textFill="WHITE">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Label>
-               <Label layoutX="67.0" layoutY="91.0" prefHeight="18.0" prefWidth="142.0" text="Lesson's Number :" textFill="WHITE">
+               <Label prefHeight="18.0" prefWidth="142.0" text="Course :" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
             </children>
-            <effect>
-               <DropShadow />
-            </effect>
-            <cursor>
-               <Cursor fx:constant="E_RESIZE" />
-            </cursor>
-         </AnchorPane>
+         </VBox>
+         <Label layoutX="67.0" layoutY="57.0" prefHeight="18.0" prefWidth="142.0" text="Description :" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Label layoutX="67.0" layoutY="91.0" prefHeight="18.0" prefWidth="142.0" text="Lesson's Number :" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
       </children>
       <effect>
          <DropShadow />
       </effect>
+      <cursor>
+         <Cursor fx:constant="E_RESIZE" />
+      </cursor>
    </AnchorPane>
+   <ImageView fitHeight="220.0" fitWidth="286.0" layoutX="582.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../Images/Icons/study.png" />
+      </image>
+      <effect>
+         <DropShadow />
+      </effect>
+   </ImageView>
 </AnchorPane>
