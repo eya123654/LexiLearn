@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="649.0" prefWidth="941.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
-    <VBox fx:id="courseDetailsBox" layoutY="217.0" minHeight="200" minWidth="400" prefHeight="604.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="270.0" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="649.0" prefWidth="941.0" stylesheets="@../../Css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController" AnchorPane.topAnchor="170.0" >
+    <VBox fx:id="courseDetailsBox" layoutY="217.0" minHeight="200" minWidth="400" prefHeight="604.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="170.0" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
         <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
         <!-- ListView for lessons -->

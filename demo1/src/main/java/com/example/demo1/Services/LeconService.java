@@ -145,7 +145,7 @@ public class LeconService implements IService<Lecon> {
             stmt.setString(1, lessonName);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) == 0; 
+                    return rs.getInt(1) == 0;
                 }
             }
         } catch (SQLException e) {
@@ -153,13 +153,12 @@ public class LeconService implements IService<Lecon> {
         }
         return false;
     }
-    public void markLessonCompleted(Lecon lecon) {
-        String sql = "UPDATE Lecon SET completed = TRUE WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)){
-            stmt.setInt(1, lecon.getId());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+    public void updateCompleted(Lecon lecon) throws SQLException {
+        String query = "UPDATE lecon SET completed = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setBoolean(1, lecon.isCompleted());
+            preparedStatement.setInt(2, lecon.getId());
+            preparedStatement.executeUpdate();
         }
     }
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox fx:id="mainContainer" spacing="20" styleClass="main-container">
+        <!-- Top Bar with greeting and profile -->
+        <HBox fx:id="topBar" styleClass="top-bar">
+            <Label text="Hi, Mia Lore 👋" />
+            <ImageView fx:id="profileImage" />
+        </HBox>
+
+        <!-- Course Cards Container -->
+        <HBox fx:id="coursesContainer" spacing="10">
+            <!-- Card Example -->
+            <VBox fx:id="courseCard" styleClass="course-card">
+                <ImageView fx:id="courseImage" />
+                <Label fx:id="courseTitle" text="Design Strategy" />
+                <Label fx:id="courseDescription" text="Lesson on planning a design concept and proper planning of work." />
+                <ProgressBar fx:id="courseProgress" progress="0.4" />
+            </VBox>
+            <!-- Additional cards here -->
+        </HBox>
+
+        <!-- Calendar and Schedule Section -->
+        <HBox fx:id="calendarScheduleContainer" spacing="20">
+            <!-- Calendar View -->
+            <VBox fx:id="calendarContainer" styleClass="calendar-container">
+                <Label text="May 2021" />
+                <!-- Calendar goes here -->
+            </VBox>
+
+            <!-- Schedule View -->
+            <VBox fx:id="scheduleContainer" styleClass="schedule-container">
+                <Label text="Schedule" />
+                <ListView fx:id="scheduleList" />
+            </VBox>
+        </HBox>
+
+        <!-- Graph Section -->
+        <VBox fx:id="graphContainer" styleClass="graph-container">
+            <Label text="Hours spent" />
+            <!-- Graph goes here -->
+        </VBox>
+    </VBox>
+
+</AnchorPane>

@@ -4,6 +4,7 @@ import com.example.demo1.Entities.Cours;
 import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Services.CoursService;
 import com.example.demo1.Services.LeconService;
+import com.example.demo1.Utils.DataSource;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -17,12 +18,19 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CourseDetailsController {
+    private Connection connection;
+
+    public CourseDetailsController() {
+        connection = DataSource.getInstance().getCon();
+    }
 
     @FXML
     private Label lblCourseTitle;
@@ -56,8 +64,20 @@ public class CourseDetailsController {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.setSelected(lecon.isCompleted());
+                    checkBox.setOnAction(event -> {
+                        lecon.setCompleted(checkBox.isSelected());
+                        try {
+                            leconService.updateCompleted(lecon);
+                            updateCourseProgress();// Implémentez cette méthode pour mettre à jour votre base de données
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        updateProgressBar();
+                    });
                     VBox vbox = new VBox(5);
-                    Label titleLabel = new Label(lecon.getTitre());
+                    Label titleLabel = new Label(lecon.getTitre(), checkBox);
                     Label descriptionLabel = new Label(lecon.getDescription());
                     Label contentLabel = new Label(lecon.getContenu());
                     Label completedLabel = new Label(lecon.isCompleted() ? "Completed" : "Not Completed");
@@ -66,28 +86,34 @@ public class CourseDetailsController {
                     downloadButton.setOnAction(event -> downloadAsPDF(lecon));
 
 
-
                     Button passQuizButton = new Button("Pass The Quiz");
-                    leconService.markLessonCompleted(lecon);
-                    coursService.updateCourseProgress(currentCourse);
-                    progressBar.setProgress(currentCourse.getAvancement());
-                    System.out.println("Progress set to: " + progressBar.getProgress());
+                    passQuizButton.setOnAction(event -> {
+                    });
+
+
                     titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
                     descriptionLabel.setStyle("-fx-font-size: 12px;");
                     contentLabel.setStyle("-fx-font-size: 12px; -fx-padding: 10px;");
                     downloadButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
                     passQuizButton.setStyle("-fx-background-color: green; -fx-text-fill: white;");
 
-                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel,completedLabel, downloadButton, passQuizButton);
+                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel, completedLabel, downloadButton, passQuizButton);
                     setGraphic(vbox);
+
+
                 }
 
+
             }
-
-
         });
-
     }
+
+    private void updateProgressBar() {
+        List<Lecon> lecons = listViewLessons.getItems();
+        long completedCount = lecons.stream().filter(Lecon::isCompleted).count();
+        progressBar.setProgress((double) completedCount / lecons.size());
+    }
+
     private void downloadAsPDF(Lecon lecon) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf"));
@@ -111,7 +137,7 @@ public class CourseDetailsController {
                     contentStream.endText();
 
                     // Draw the description with text wrapping
-                    addWrappedText(contentStream, lecon.getDescription(), PDType1Font.HELVETICA, 12,100, 650, page.getMediaBox().getWidth() - 200);
+                    addWrappedText(contentStream, lecon.getDescription(), PDType1Font.HELVETICA, 12, 100, 650, page.getMediaBox().getWidth() - 200);
 
                     // Draw the content with text wrapping
                     addWrappedText(contentStream, lecon.getContenu(), PDType1Font.HELVETICA, 12, 100, 600, page.getMediaBox().getWidth() - 200);
@@ -124,6 +150,7 @@ public class CourseDetailsController {
             }
         }
     }
+
     private void addWrappedText(PDPageContentStream contentStream, String text, PDFont font, float fontSize, float xStart, float yStart, float width) throws IOException {
         String[] lines = text.split("\n");
         contentStream.setFont(font, fontSize);
@@ -166,6 +193,22 @@ public class CourseDetailsController {
 
 
         listViewLessons.getItems().setAll(coursService.fetchLessonsForCourse(course));
+    }
+
+    private void updateCourseProgress() throws SQLException {
+        List<Lecon> lecons = listViewLessons.getItems();
+        long completedCount = lecons.stream().filter(Lecon::isCompleted).count();
+        double progress = (double) completedCount / lecons.size();
+
+        progressBar.setProgress(progress);
+
+        // Mise à jour de l'avancement dans la base de données pour le cours
+        String query = "UPDATE cours SET avancement = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDouble(1, progress * 100); // Conversion en pourcentage
+            preparedStatement.setInt(2, currentCourse.getId());
+            preparedStatement.executeUpdate();
+        }
     }
 
     @FXML

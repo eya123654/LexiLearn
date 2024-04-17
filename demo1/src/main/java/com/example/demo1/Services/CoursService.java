@@ -146,24 +146,6 @@ public Cours readSingle(int id) throws SQLException {
         }
         return false;
     }
-    public void updateCourseProgress(Cours course) {
-        int totalLessons = course.getLessons().size();
-        int completedLessons = (int) course.getLessons().stream().filter(Lecon::isCompleted).count();
-        int newProgress = (completedLessons * 100) / totalLessons; // Toujours en pourcentage
-        course.setAvancement(newProgress); // stocke la valeur entière, par exemple, 100 pour 100%
 
-        String sql = "UPDATE Cours SET avancement = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, newProgress); // envoie l'entier, par exemple 100
-            stmt.setInt(2, course.getId());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        double progressForBar = newProgress / 100.0; // Convertit en double, par exemple, 1.0 pour 100%
-
-    }
 
 }

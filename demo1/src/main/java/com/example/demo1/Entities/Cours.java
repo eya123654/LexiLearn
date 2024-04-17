@@ -61,6 +61,7 @@ public class Cours {
                 '}';
     }
 
+
     public int getId() {
         return id;
     }
@@ -85,12 +86,14 @@ public class Cours {
         this.description = description;
     }
 
-    public int getAvancement() {
-        return avancement;
-    }
+
 
     public void setAvancement(int avancement) {
         this.avancement = avancement;
+    }
+
+    public int getAvancement() {
+        return avancement;
     }
 
     public String getImage() {
