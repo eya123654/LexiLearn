@@ -28,7 +28,7 @@ public class CoursService implements IService<Cours> {
             preparedStatement.setString(1, cours.getNomCours());
             preparedStatement.setString(2, cours.getDescription());
             preparedStatement.setInt(3, cours.getAvancement());
-            preparedStatement.setString(4, cours.getImage());
+            preparedStatement.setBytes(4, cours.getImage());
             preparedStatement.setString(5, cours.getPrice());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public class CoursService implements IService<Cours> {
             pstmt.setString(1, cours.getNomCours());
             pstmt.setString(2, cours.getDescription());
             pstmt.setDouble(3, cours.getAvancement());
-            pstmt.setString(4, cours.getImage());
+            pstmt.setBytes(4, cours.getImage());
             pstmt.setString(5, cours.getPrice());
             pstmt.setInt(6, cours.getId());
             pstmt.executeUpdate();
@@ -71,7 +71,7 @@ public Cours readSingle(int id) throws SQLException {
                         rs.getString("nom_cours"),
                         rs.getString("description"),
                         rs.getInt("avancement"),
-                        rs.getString("image"),
+                        rs.getBytes("image"),
                         rs.getString("price")
                 );
             }
@@ -91,7 +91,7 @@ public Cours readSingle(int id) throws SQLException {
                         resultSet.getString("nom_cours"),
                         resultSet.getString("description"),
                         resultSet.getInt("avancement"),
-                        resultSet.getString("image"),
+                        resultSet.getBytes("image"),
                         resultSet.getString("price")
 
 

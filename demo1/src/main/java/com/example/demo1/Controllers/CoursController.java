@@ -10,8 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,22 +50,44 @@ public class CoursController {
     @FXML
     private TableColumn<Cours, Integer> progressColumn;
     @FXML
-    private TableColumn<Cours, String> imageColumn;
+    private TableColumn<Cours, byte[]> imageColumn;
     @FXML
     private TableColumn<Cours, String> priceColumn;
     @FXML
     private StackPane contentArea;
     @FXML
-    private Button addButton;
+    private ImageView imagePreview;
     @FXML
-    private Button editButton;
+    private Button imageButton;
     @FXML
     private Button deleteButton;
     private CoursService coursService;
     private ObservableList<Cours> courseList = FXCollections.observableArrayList();
-
+    private byte[] imageData;
     public CoursController() throws SQLException {
         coursService = new CoursService();
+    }
+    @FXML
+    private void chooseImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            imagePreview.setImage(new Image(file.toURI().toString()));
+            imageData = readFileToByteArray(file);
+        }
+    }
+
+    private byte[] readFileToByteArray(File file) {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            return buffer;
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "File Reading Error", "Failed to read the image file.");
+            return null;
+        }
     }
 
     @FXML
@@ -70,6 +98,30 @@ public class CoursController {
         progressColumn.setCellValueFactory(new PropertyValueFactory<>("avancement"));
         imageColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        imageColumn.setCellFactory(param -> new TableCell<Cours, byte[]>() {
+            private final ImageView imageView = new ImageView();
+            {
+                imageView.setFitHeight(50); // set the image view size
+                imageView.setFitWidth(50);}
+
+            @Override
+            protected void updateItem(byte[] item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        ByteArrayInputStream bis = new ByteArrayInputStream(item);
+                        Image image = new Image(bis);
+                        imageView.setImage(image);
+                        setGraphic(imageView);
+                    } catch (Exception e) {
+                        e.printStackTrace(); // Handle any exceptions
+                    }
+                }
+            }});
+
 
         courseTable.setItems(courseList);
         refreshCourseTable();
@@ -86,11 +138,26 @@ public class CoursController {
         nomCoursField.setText(course.getNomCours());
         descriptionField.setText(course.getDescription());
         avancementField.setText(String.valueOf(course.getAvancement()));
-        imageField.setText(course.getImage());
+
         priceField.setText(course.getPrice());
-
-
+        byte[] imageData = course.getImage();
+        if (imageData != null && imageData.length > 0) {
+            try {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                imagePreview.setImage(image);  // Assuming `imagePreview` is your ImageView
+                bis.close();
+            } catch (IOException e) {
+                System.err.println("Error loading image: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            // Optionally set a default or placeholder image if no image is available
+            imagePreview.setImage(new Image("@../../Images/public.jpg"));
+        }
     }
+
+
 
     @FXML
     private void addCours(ActionEvent event) {
@@ -100,7 +167,7 @@ public class CoursController {
                 int avancement = Integer.parseInt(avancementField.getText().trim());
                 String nomCours = nomCoursField.getText().trim();
                 String description = descriptionField.getText().trim();
-                String image = imageField.getText().trim();
+             //   String image = imageField.getText().trim();
                 String price = priceField.getText().trim();
 
                 boolean isUnique = coursService.checkCourseNameUnique(nomCours);
@@ -110,7 +177,7 @@ public class CoursController {
                 }
 
 
-                Cours cours = new Cours(nomCours, description, avancement, image, price);
+                Cours cours = new Cours(nomCours, description, avancement, imageData, price);
                 coursService.ajouter(cours);
                 courseList.add(cours);
                 clearForm();
@@ -122,6 +189,7 @@ public class CoursController {
                 showAlert(Alert.AlertType.ERROR, "Input Error", "Error parsing avancement to integer.");
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Database Error", "Error creating course: " + e.getMessage());
+                System.out.println(e.getMessage());
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "This Field is Required", "please fill the field");
@@ -154,10 +222,10 @@ public class CoursController {
                 int avancement = Integer.parseInt(avancementField.getText().trim());
                 String nomCours = nomCoursField.getText().trim();
                 String description = descriptionField.getText().trim();
-                String image = imageField.getText().trim();
+//String image = imageField.getText().trim();
                 String price = priceField.getText().trim();
 
-                Cours updatedCours = new Cours(selectedCours.getId(), nomCours, description, avancement, image, price);
+                Cours updatedCours = new Cours(selectedCours.getId(), nomCours, description, avancement, imageData, price);
 
                 coursService.update(updatedCours);
                 refreshCourseTable();
@@ -201,7 +269,7 @@ public class CoursController {
         String courseName = nomCoursField.getText();
         String description = descriptionField.getText();
         String progress = avancementField.getText();
-        String imageUrl = imageField.getText();
+
         String price = priceField.getText();
 
 
@@ -219,12 +287,7 @@ public class CoursController {
         } else {
             descriptionField.setStyle("");
         }
-        if (imageUrl.isEmpty()) {
-            isValid = false;
-            imageField.setStyle("-fx-border-color: red;");
-        } else {
-            imageField.setStyle("");
-        }
+
         if (price.isEmpty()) {
             isValid = false;
             priceField.setStyle("-fx-border-color: red;");
@@ -253,7 +316,7 @@ public class CoursController {
         descriptionField.clear();
         nomCoursField.clear();
         priceField.clear();
-        imageField.clear();
+
         priceField.clear();
     }
 }

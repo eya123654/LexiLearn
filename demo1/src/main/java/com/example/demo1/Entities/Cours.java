@@ -12,11 +12,11 @@ public class Cours {
     private String nomCours;
     private String description;
     private int avancement;
-    private String image;
+    private byte[] image;
     private String price;
     private ObservableList<Lecon> lessons = FXCollections.observableArrayList();
 
-    public Cours(String nom_cours, String description, int avancement, String image, String price) {
+    public Cours(String nom_cours, String description, int avancement, byte[] image, String price) {
         this.nomCours = nom_cours;
         this.description = description;
         this.avancement = avancement;
@@ -29,7 +29,7 @@ public class Cours {
     public Cours() {
     }
 
-    public Cours(int id, String nom_cours, String description, int avancement, String image, String price) {
+    public Cours(int id, String nom_cours, String description, int avancement, byte[] image, String price) {
         this.id=id;
         this.nomCours = nom_cours;
         this.description = description;
@@ -96,11 +96,11 @@ public class Cours {
         return avancement;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

@@ -7,6 +7,8 @@ module demo1 {
     requires org.apache.pdfbox;
     requires java.desktop;
     requires com.google.protobuf;
+    requires javafx.media;
+    requires freetts;
     exports com.example.demo1 to javafx.graphics;
     opens com.example.demo1.Entities to javafx.base, javafx.fxml;
 

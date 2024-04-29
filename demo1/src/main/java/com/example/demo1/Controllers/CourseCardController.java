@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.w3c.dom.events.Event;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class CourseCardController {
@@ -65,24 +66,27 @@ public class CourseCardController {
         this.cours = cours;
         courseName.setText(cours.getNomCours());
         courseDescription.setText(cours.getDescription());
-        String imagePath = cours.getImage();
-        if (imagePath != null && !imagePath.isEmpty()) {
+        byte[] imagePath = cours.getImage();
+        if (imagePath != null && imagePath.length >0) {
             try {
-                Image image;
-                if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-                    image = new Image(imagePath, true);
-                } else {
-                    imagePath = "@../../Images/public.jpg";
-                    image = new Image(imagePath, true); // true = load in background
-                }
+                ByteArrayInputStream bis = new ByteArrayInputStream(imagePath);
+                Image image = new Image(bis);
                 courseImage.setImage(image);
+                bis.close();  // Always good to close streams
             } catch (Exception e) {
-                System.err.println("Error loading image: " + imagePath);
+                System.err.println("Error loading image from byte array.");
+                e.printStackTrace();
+            }
+        } else {
+            String defaultImagePath = "C:/xampp/htdocs/pidev/demo1/src/main/resources/com/example/demo1/Images/public.jpg";
+                    Image image = new Image(defaultImagePath, true); // true = load in background
 
+                courseImage.setImage(image);
             }
         }
 
-    }
+
+
 
 
     @FXML

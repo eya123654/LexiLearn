@@ -11,14 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="843.0" prefWidth="1200.0" stylesheets="@../../Css/style.css" AnchorPane.topAnchor="170.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
-    <VBox fx:id="courseDetailsBox" layoutX="-1.0" layoutY="415.0" minHeight="200" minWidth="400" prefHeight="699.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="415.0" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="courseDetailsBox" layoutY="401.0" minHeight="200" minWidth="400" prefHeight="638.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="401.0" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
         <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
-        <!-- ListView for lessons -->
-        <ListView fx:id="listViewLessons" prefHeight="350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
-            <!-- Items will be added here by the controller -->
+       <Button fx:id="audioButton" text="🔊" onAction="#handleGenerateAudio"/>
+       <!-- ListView for lessons -->
+      <ListView fx:id="listViewLessons" prefHeight="350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
+
+
+         <!--
+            &lt;!&ndash; Items will be added here by the controller &ndash;&gt;
+-->
         </ListView>
+      <!-- <Accordion fx:id="accordionLessons" prefHeight="350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
+          &lt;!&ndash; TitledPane pour chaque leçon &ndash;&gt;
+       </Accordion>-->
        <ProgressBar fx:id="progressBar" layoutX="10" layoutY="10" prefWidth="200" />
 
     </VBox>

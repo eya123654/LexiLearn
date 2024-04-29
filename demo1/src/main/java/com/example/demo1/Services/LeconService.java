@@ -131,7 +131,7 @@ public class LeconService implements IService<Lecon> {
                             resultSet.getString("nom_cours"),
                             resultSet.getString("description"),
                             resultSet.getInt("avancement"),
-                            resultSet.getString("image"),
+                            resultSet.getBytes("image"),
                             resultSet.getString("price")
                     );
                 }

@@ -5,9 +5,12 @@ import com.example.demo1.Entities.Lecon;
 import com.example.demo1.Services.CoursService;
 import com.example.demo1.Services.LeconService;
 import com.example.demo1.Utils.DataSource;
+import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -17,6 +20,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +28,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
+import java.io.File;
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 public class CourseDetailsController {
     private Connection connection;
@@ -48,6 +61,8 @@ public class CourseDetailsController {
     private Lecon lecon;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private Button audioButton;
 
     public ListView<Lecon> getListViewLessons() {
         return listViewLessons;
@@ -55,6 +70,7 @@ public class CourseDetailsController {
 
     @FXML
     private void initialize() {
+        listAllVoices();
         listViewLessons.setCellFactory(lv -> new ListCell<Lecon>() {
             @Override
             protected void updateItem(Lecon lecon, boolean empty) {
@@ -107,6 +123,47 @@ public class CourseDetailsController {
             }
         });
     }
+
+    @FXML
+    private void handleGenerateAudio() {
+        if (lblCourseDescription != null) {
+            String text = lblCourseDescription.getText(); // Get the text from your label or text source
+            synthesizeAndPlayText(text);
+        }
+    }
+
+    private void synthesizeAndPlayText(String text) {
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                VoiceManager voiceManager = VoiceManager.getInstance();
+                Voice voice = voiceManager.getVoice("kevin16");
+                if (voice != null) {
+                    voice.allocate();
+                    try {
+                        voice.speak(text); // Directly speak the text
+                    } finally {
+                        voice.deallocate(); // Make sure to deallocate the voice
+                    }
+                } else {
+                    System.err.println("Voice 'kevin16' not available");
+                }
+                return null;
+            }
+        };
+        new Thread(task).start(); // Run the speech synthesis in a background thread
+    }
+    public void listAllVoices() {
+        System.out.println("Listing all available voices:");
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        Voice[] voices = voiceManager.getVoices();
+        if (voices.length == 0) {
+            System.out.println("No voices found. Check your FreeTTS configuration.");
+        } else {
+        for (Voice voice : voices) {
+            System.out.println("Voice name: " + voice.getName());
+        }
+    }}
 
     private void updateProgressBar() {
         List<Lecon> lecons = listViewLessons.getItems();
