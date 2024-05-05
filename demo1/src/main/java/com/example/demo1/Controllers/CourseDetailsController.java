@@ -11,6 +11,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -27,9 +29,7 @@ import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 import javax.sound.sampled.AudioFileFormat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -50,6 +50,7 @@ import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import static com.mysql.cj.util.StringUtils.getBytes;
 import static java.awt.SystemColor.text;
 
 public class CourseDetailsController {
@@ -65,6 +66,14 @@ public class CourseDetailsController {
     private Label lblCourseDescription;
     @FXML
     private ListView<Lecon> listViewLessons;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private Label title;
+    @FXML
+    private Label desc;
+    @FXML
+    private Label number;
     @FXML
     private Button backButton;
     @FXML
@@ -89,7 +98,6 @@ public class CourseDetailsController {
              Button audioButton = new Button("🔊");
             Button downloadaudio = new Button("Download", new FontAwesomeIconView(FontAwesomeIcon.DOWNLOAD));
             CheckBox checkBox = new CheckBox();
-
             private final VBox vbox = new VBox();
             {
                 vbox.getChildren().addAll(label,checkBox, audioButton,downloadaudio);
@@ -337,12 +345,20 @@ public class CourseDetailsController {
         currentCourse = course;
         lblCourseTitle.setText(course.getNomCours());
         lblCourseDescription.setText(course.getDescription());
+        title.setText("Course:"+course.getNomCours());
+        desc.setText("Description:"+course.getDescription());
+        number.setText("Total Lessons"+course.getLessons().size());
+        // Assuming getImage() returns a byte[] that is your image data
+        byte[] imgBytes = course.getImage();
+        if (imgBytes != null) {
+            Image img = new Image(new ByteArrayInputStream(imgBytes));
+            imageView.setImage(img); // Assuming imageView is your ImageView control
+        }
 
         System.out.println("Lessons loaded: " + coursService.fetchLessonsForCourse(course).size());
-
-
         listViewLessons.getItems().setAll(coursService.fetchLessonsForCourse(course));
     }
+
 
     private void updateCourseProgress() throws SQLException {
         List<Lecon> lecons = listViewLessons.getItems();
