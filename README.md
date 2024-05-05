@@ -13,6 +13,7 @@
 - 📊 **User's Progress Tracking**: Monitor and display the learning progress of users.
 - 📤 **Upload Lessons (PDF)**: Facilitate the uploading of lesson materials in PDF format.
 - ⭐ **Rating Course**: Allow users to rate courses, providing feedback and insights.
+- 📤 **Text To Speech and download Audio**: converts written text into spoken words 
 
 ### Entities:
 - **Course**: Represents the educational courses offered.
