@@ -198,7 +198,7 @@ public class LeconController {
                         LessonList.remove(selectedLesson);
                         refreshCourseTable();
 
-                        showAlert(Alert.AlertType.INFORMATION, "Course Deleted", "The course was successfully deleted.");
+                        showAlert(Alert.AlertType.INFORMATION, "lesson Deleted", "The lesson was successfully deleted.");
                     } catch (Exception e) {
                         showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the lesson: " + e.getMessage());
                         System.out.println(e.getMessage());
@@ -206,7 +206,7 @@ public class LeconController {
                 }
             });
         } else {
-            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a course from the table.");
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a lesson from the table.");
         }
     }
 

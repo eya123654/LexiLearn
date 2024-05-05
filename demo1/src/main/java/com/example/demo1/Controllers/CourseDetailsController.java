@@ -6,9 +6,13 @@ import com.example.demo1.Services.CoursService;
 import com.example.demo1.Services.LeconService;
 import com.example.demo1.Utils.DataSource;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -18,7 +22,11 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-
+import com.sun.speech.freetts.audio.AudioPlayer;
+import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
+import javax.sound.sampled.AudioFileFormat;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,10 +41,16 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import java.io.File;
+import java.util.Locale;
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.speech.Central;
+import javax.speech.synthesis.Synthesizer;
+import javax.speech.synthesis.SynthesizerModeDesc;
+
+import static java.awt.SystemColor.text;
 
 public class CourseDetailsController {
     private Connection connection;
@@ -61,8 +75,7 @@ public class CourseDetailsController {
     private Lecon lecon;
     @FXML
     private ProgressBar progressBar;
-    @FXML
-    private Button audioButton;
+
 
     public ListView<Lecon> getListViewLessons() {
         return listViewLessons;
@@ -70,8 +83,20 @@ public class CourseDetailsController {
 
     @FXML
     private void initialize() {
-        listAllVoices();
         listViewLessons.setCellFactory(lv -> new ListCell<Lecon>() {
+            private final HBox hbox = new HBox(10); // spacing between elements
+            private final Label label = new Label();
+             Button audioButton = new Button("🔊");
+            Button downloadaudio = new Button("Download", new FontAwesomeIconView(FontAwesomeIcon.DOWNLOAD));
+            CheckBox checkBox = new CheckBox();
+
+            private final VBox vbox = new VBox();
+            {
+                vbox.getChildren().addAll(label,checkBox, audioButton,downloadaudio);
+                vbox.setVgrow(label, Priority.ALWAYS); // Make label grow horizontally
+
+
+            }
             @Override
             protected void updateItem(Lecon lecon, boolean empty) {
                 super.updateItem(lecon, empty);
@@ -80,7 +105,13 @@ public class CourseDetailsController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    CheckBox checkBox = new CheckBox();
+                    Label titleLabel = new Label(lecon.getTitre(), checkBox);
+                    Label descriptionLabel = new Label(lecon.getDescription());
+                    Label contentLabel = new Label(lecon.getContenu());
+                    Label completedLabel = new Label(lecon.isCompleted() ? "Completed" : "Not Completed");
+                    audioButton.setOnAction(event -> handleGenerateAudio(lecon)); // Set action for audio button
+                    downloadaudio.setOnAction(event -> generateAndSaveAudio(lecon));
+                  //  setGraphic(hbox);
                     checkBox.setSelected(lecon.isCompleted());
                     checkBox.setOnAction(event -> {
                         lecon.setCompleted(checkBox.isSelected());
@@ -93,10 +124,6 @@ public class CourseDetailsController {
                         updateProgressBar();
                     });
                     VBox vbox = new VBox(5);
-                    Label titleLabel = new Label(lecon.getTitre(), checkBox);
-                    Label descriptionLabel = new Label(lecon.getDescription());
-                    Label contentLabel = new Label(lecon.getContenu());
-                    Label completedLabel = new Label(lecon.isCompleted() ? "Completed" : "Not Completed");
 
                     Button downloadButton = new Button("Download as PDF");
                     downloadButton.setOnAction(event -> downloadAsPDF(lecon));
@@ -113,9 +140,9 @@ public class CourseDetailsController {
                     downloadButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
                     passQuizButton.setStyle("-fx-background-color: green; -fx-text-fill: white;");
 
-                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel, completedLabel, downloadButton, passQuizButton);
+                    vbox.getChildren().addAll(titleLabel, descriptionLabel, contentLabel,audioButton,downloadaudio, completedLabel, downloadButton, passQuizButton);
                     setGraphic(vbox);
-
+                    //setGraphic(hbox);
 
                 }
 
@@ -125,45 +152,101 @@ public class CourseDetailsController {
     }
 
     @FXML
-    private void handleGenerateAudio() {
-        if (lblCourseDescription != null) {
-            String text = lblCourseDescription.getText(); // Get the text from your label or text source
-            synthesizeAndPlayText(text);
+    private void handleGenerateAudio(Lecon lecon) {
+        if (lecon == null) {
+            System.err.println("No lesson provided for text-to-speech.");
+            return; // Early exit if the lesson data is null
         }
-    }
 
-    private void synthesizeAndPlayText(String text) {
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() {
-                VoiceManager voiceManager = VoiceManager.getInstance();
-                Voice voice = voiceManager.getVoice("kevin16");
-                if (voice != null) {
-                    voice.allocate();
-                    try {
-                        voice.speak(text); // Directly speak the text
-                    } finally {
-                        voice.deallocate(); // Make sure to deallocate the voice
-                    }
-                } else {
-                    System.err.println("Voice 'kevin16' not available");
-                }
-                return null;
-            }
-        };
-        new Thread(task).start(); // Run the speech synthesis in a background thread
-    }
-    public void listAllVoices() {
-        System.out.println("Listing all available voices:");
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        Voice[] voices = voiceManager.getVoices();
-        if (voices.length == 0) {
-            System.out.println("No voices found. Check your FreeTTS configuration.");
-        } else {
-        for (Voice voice : voices) {
-            System.out.println("Voice name: " + voice.getName());
+        String text = lecon.getContenu(); // Retrieve the content of the lesson
+        if (text == null || text.isEmpty()) {
+            System.err.println("No content to speak.");
+            return; // Early exit if there is no text to synthesize
         }
-    }}
+
+        try {
+            // Setting the system properties to use Kevin's dictionary of FreeTTS
+            System.setProperty("freetts.voices",
+                    "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+
+            // Registering the speech engine
+            Central.registerEngineCentral("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
+
+            // Create a Synthesizer that generates voice
+            Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+
+            // Allocates a synthesizer
+            synthesizer.allocate();
+
+            // Resume a Synthesizer
+            synthesizer.resume();
+
+            // Speak the specified text until the QUEUE become empty
+            synthesizer.speakPlainText(text, null);
+            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+
+            // Deallocating the Synthesizer
+            synthesizer.deallocate();
+        } catch (Exception e) {
+            System.err.println("Error during speech synthesis: " + e.getMessage());
+            e.printStackTrace();
+        }
+        generateAndSaveAudio(lecon);
+
+   }
+   @FXML
+    private void generateAndSaveAudio(Lecon lecon) {
+        if (lecon == null || lecon.getContenu().isEmpty()) {
+            System.err.println("No content to generate audio.");
+            return;
+        }
+
+        try {
+            // Set the properties to use the desired voice
+            System.setProperty("freetts.voices",
+                    "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+
+            VoiceManager voiceManager = VoiceManager.getInstance();
+            Voice voice = voiceManager.getVoice("kevin16"); // Ensure this voice is available in your setup
+
+            if (voice == null) {
+                System.err.println("Voice not available.");
+                return;
+            }
+
+            // Set up the audio player to write to a file
+            String basePath = "C:\\xampp\\htdocs\\pidev\\demo1\\src\\main\\java\\com\\example\\demo1\\audio\\";
+            String sanitizedTitle = sanitizeFilename(lecon.getTitre());
+
+            String filename = basePath + "Lecon_" +sanitizedTitle; // Custom filename within the audio folder
+            AudioPlayer audioPlayer = new SingleFileAudioPlayer(filename, AudioFileFormat.Type.WAVE);
+            voice.setAudioPlayer(audioPlayer);
+            voice.allocate();
+            voice.speak(lecon.getContenu());
+            voice.deallocate();
+
+            // Close the audio player to finalize and save the audio file
+            audioPlayer.close();
+            System.out.println("Audio file saved as: " + filename + ".wav");
+        } catch (Exception e) {
+            System.err.println("Error in generating audio file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    private String sanitizeFilename(String name) {
+        // Remove any characters that are not letters, digits, or common punctuation.
+        name = name.replaceAll("[^a-zA-Z0-9_\\-\\s]", "");
+
+        // Replace spaces with underscores to avoid issues in URLs or command lines.
+        name = name.replace(" ", "_");
+
+        // Truncate the filename to 100 characters if it's excessively long.
+        if (name.length() > 100) {
+            name = name.substring(0, 100);
+        }
+
+        return name;
+    }
 
     private void updateProgressBar() {
         List<Lecon> lecons = listViewLessons.getItems();
@@ -174,6 +257,14 @@ public class CourseDetailsController {
     private void downloadAsPDF(Lecon lecon) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf"));
+
+        // Set the initial directory (optional, could be configured or static)
+        fileChooser.setInitialDirectory(new File("C:\\Users\\asus\\Desktop\\lessons"));
+
+        // Suggest a file name based on the lesson title
+        String safeTitle = lecon.getTitre().replaceAll("[^a-zA-Z0-9_\\-]", "_");  // Sanitize to ensure it's a valid filename
+        fileChooser.setInitialFileName(safeTitle + ".pdf");  // Set default filename in the save dialog
+
         File file = fileChooser.showSaveDialog(listViewLessons.getScene().getWindow());
 
         if (file != null) {
@@ -189,7 +280,7 @@ public class CourseDetailsController {
                     // Draw the title
                     contentStream.beginText();
                     contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-                    contentStream.newLineAtOffset(160, 720); // Adjust x to align with your image
+                    contentStream.newLineAtOffset(160, 720);
                     contentStream.showText(lecon.getTitre());
                     contentStream.endText();
 
@@ -207,6 +298,7 @@ public class CourseDetailsController {
             }
         }
     }
+
 
     private void addWrappedText(PDPageContentStream contentStream, String text, PDFont font, float fontSize, float xStart, float yStart, float width) throws IOException {
         String[] lines = text.split("\n");

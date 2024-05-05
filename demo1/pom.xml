@@ -22,6 +22,18 @@
         </dependency>
 
 
+        <!-- Additional dependencies for voices and other components -->
+        <dependency>
+            <groupId>org.jvoicexml</groupId>
+            <artifactId>cmu_us_kal</artifactId>
+            <version>1.2.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jvoicexml</groupId>
+            <artifactId>cmu_time_awb</artifactId>
+            <version>1.2.3-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>

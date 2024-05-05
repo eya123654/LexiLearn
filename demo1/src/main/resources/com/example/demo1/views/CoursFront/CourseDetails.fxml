@@ -17,7 +17,6 @@
     <VBox fx:id="courseDetailsBox" layoutY="401.0" minHeight="200" minWidth="400" prefHeight="638.0" prefWidth="942.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="401.0" xmlns:fx="http://javafx.com/fxml/1">
         <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
         <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
-       <Button fx:id="audioButton" text="🔊" onAction="#handleGenerateAudio"/>
        <!-- ListView for lessons -->
       <ListView fx:id="listViewLessons" prefHeight="350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
 
