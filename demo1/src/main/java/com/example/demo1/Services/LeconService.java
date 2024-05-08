@@ -70,24 +70,31 @@ public class LeconService implements IService<Lecon> {
     @Override
     public ObservableList<Lecon> readAll() {
         ObservableList<Lecon> lecons = FXCollections.observableArrayList();
-        String query = "SELECT * FROM lecon";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+        // Modified query to include a JOIN with the cours table
+        String query = "SELECT lecon.*, cours.nom_cours, cours.description as course_description, " +
+                "cours.avancement, cours.image, cours.price FROM lecon " +
+                "JOIN cours ON lecon.cours_id = cours.id";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Cours course = fetchCourseById(resultSet.getInt("cours_id"));
+                Cours course = new Cours(
+                        resultSet.getInt("cours_id"),
+                        resultSet.getString("nom_cours"),
+                        resultSet.getString("course_description"),
+                        resultSet.getInt("avancement"),
+                        resultSet.getBytes("image"),
+                        resultSet.getString("price")
+                );
 
-                Lecon musee = new Lecon(
+                Lecon lecon = new Lecon(
                         resultSet.getInt("id"),
                         course,
                         resultSet.getString("titre"),
                         resultSet.getString("description"),
                         resultSet.getString("contenu"),
                         resultSet.getBoolean("completed")
-
-
                 );
-                lecons.add(musee);
+                lecons.add(lecon);
             }
         } catch (SQLException e) {
             e.printStackTrace();

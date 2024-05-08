@@ -5,63 +5,70 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1075.0" prefWidth="1200.0" stylesheets="@../../Css/style.css" AnchorPane.topAnchor="170.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
-    <VBox fx:id="courseDetailsBox" layoutX="25.0" layoutY="401.0" minHeight="200" minWidth="400" prefHeight="575.0" prefWidth="1170.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f4f7; -fx-background-radius: 10;" AnchorPane.topAnchor="401.0" xmlns:fx="http://javafx.com/fxml/1">
-        <Label fx:id="lblCourseTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
-        <Label fx:id="lblCourseDescription" style="-fx-font-size: 16px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
+<AnchorPane prefHeight="1075.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.Controllers.CourseDetailsController">
+   <!-- Background gradient -->
 
-       <!-- ListView for lessons -->
+
+   <!-- Course details VBox -->
+   <VBox fx:id="courseDetailsBox" layoutX="25.0" layoutY="243.0" minHeight="200" minWidth="400" prefHeight="502.0" prefWidth="1170.0" spacing="20" style="-fx-padding: 20; -fx-background-radius: 10; -fx-background-color: #f0f4f7;">
+      <!-- Course title label -->
+      <Label fx:id="lblCourseTitle" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2a3f54;" text="Course Title" />
+      <!-- Course description label -->
+      <Label fx:id="lblCourseDescription" style="-fx-font-size: 18px; -fx-text-fill: #4a4a4a;" text="Course Description" wrapText="true" />
+      <!-- ListView for lessons -->
       <ListView fx:id="listViewLessons" prefHeight="374.0" prefWidth="1130.0" style="-fx-background-radius: 5; -fx-padding: 10;">
+         <!-- Items will be added here by the controller -->
+      </ListView>
+      <!-- Progress bar -->
+      <ProgressBar fx:id="progressBar" prefWidth="1130.0" style="-fx-padding: 5;" />
+   </VBox>
 
-
-         <!--
-            &lt;!&ndash; Items will be added here by the controller &ndash;&gt;
--->
-        </ListView>
-      <!-- <Accordion fx:id="accordionLessons" prefHeight=" and titl350.0" prefWidth="902.0" style="-fx-background-radius: 5; -fx-padding: 10;">
-          &lt;!&ndash; TitledPane pour chaque leçon &ndash;&gt;
-       </Accordion>-->
-       <ProgressBar fx:id="progressBar" layoutX="10" layoutY="10" prefHeight="18.0" prefWidth="1156.0" />
-
-    </VBox>
+   <!-- Course details container -->
    <AnchorPane layoutX="-1.0" layoutY="1.0" prefHeight="213.0" prefWidth="930.0">
+      <!-- Inner shadow effect -->
       <effect>
-         <DropShadow />
+         <InnerShadow />
       </effect>
       <children>
-         <AnchorPane layoutX="36.0" layoutY="152.0" prefHeight="223.0" prefWidth="1158.0" style="-fx-background-color: #0077b6;">
+         <!-- Course details pane -->
+         <AnchorPane layoutX="27.0" layoutY="14.0" prefHeight="223.0" prefWidth="1158.0" style="-fx-background-radius: 10; -fx-background-color: #2a3f54;">
             <children>
-               <VBox layoutX="67.0" layoutY="26.0" />
+               <!-- Description label -->
                <Label fx:id="desc" layoutX="53.0" layoutY="79.0" prefHeight="78.0" prefWidth="734.0" text="Description :" textFill="WHITE">
                   <font>
-                     <Font name="System Bold" size="12.0" />
+                     <Font name="System Bold" size="18.0" />
                   </font>
                </Label>
+               <!-- Lesson's number label -->
                <Label fx:id="number" layoutX="59.0" layoutY="160.0" prefHeight="18.0" prefWidth="378.0" text="Lesson's Number :" textFill="WHITE">
                   <font>
-                     <Font name="System Bold" size="12.0" />
+                     <Font name="System Bold" size="18.0" />
                   </font>
                </Label>
+               <!-- Course title label -->
+               <Label fx:id="title" layoutX="59.0" layoutY="44.0" prefHeight="18.0" prefWidth="399.0" text="Course :" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <!-- Course image -->
                <ImageView fx:id="imageView" fitHeight="226.0" fitWidth="298.0" layoutX="860.0" pickOnBounds="true" preserveRatio="true">
-
                   <effect>
                      <DropShadow />
                   </effect>
                </ImageView>
-               <Label fx:id="title" layoutX="59.0" layoutY="44.0" prefHeight="18.0" prefWidth="399.0" text="Course :" textFill="WHITE">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Label>
             </children>
+            <!-- Outer shadow effect -->
             <effect>
                <DropShadow />
             </effect>
+            <!-- Cursor -->
             <cursor>
                <Cursor fx:constant="E_RESIZE" />
             </cursor>

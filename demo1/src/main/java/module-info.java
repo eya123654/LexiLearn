@@ -10,6 +10,7 @@ module demo1 {
     requires javafx.media;
     requires freetts;
     requires mysql.connector.j;
+    requires org.apache.opennlp.tools;
     exports com.example.demo1 to javafx.graphics;
     opens com.example.demo1.Entities to javafx.base, javafx.fxml;
 
